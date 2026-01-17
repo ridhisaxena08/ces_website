@@ -1,5 +1,5 @@
 import { Target, Award, BookOpen, Users, Building2, GraduationCap } from 'lucide-react';
-import chairmanPhoto from 'figma:asset/6ec240e1523b1edc178289599ef478c5bff42ede.png';
+import chairmanPhoto from '@/assets/6ec240e1523b1edc178289599ef478c5bff42ede.png';
 
 export function LeadershipSection() {
   return (

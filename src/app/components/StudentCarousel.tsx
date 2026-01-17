@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import studentPhoto1 from 'figma:asset/e2bd89caf4e4f90c21ad349cc0f9b8a29ad9c067.png';
-import studentPhoto2 from 'figma:asset/0a5621e009bb5e553d2d0032a43d59c56273fac8.png';
-import studentPhoto3 from 'figma:asset/e71cafeb75095a04bfa277062729385cbf885e42.png';
+import studentPhoto1 from '@/assets/e2bd89caf4e4f90c21ad349cc0f9b8a29ad9c067.png';
+import studentPhoto2 from '@/assets/0a5621e009bb5e553d2d0032a43d59c56273fac8.png';
+import studentPhoto3 from '@/assets/913d3c39d4c7db6726a8aa11fdf554828e5eefc2.png';
 
 const studentImages = [
   studentPhoto1,

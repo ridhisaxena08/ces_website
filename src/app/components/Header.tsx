@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/app/components/Button';
-import logo from 'figma:asset/3b1c4adb05602675010d19d41b6b9c539c3ca44f.png';
+import logo from '@/assets/3b1c4adb05602675010d19d41b6b9c539c3ca44f.png';
 
 interface HeaderProps {
   onApplyClick: () => void;

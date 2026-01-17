@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import campusImage1 from 'figma:asset/5336e6e40575043b0024256ef638117952f8ddc4.png';
-import campusImage2 from 'figma:asset/41f5e2b83ae7c43a6ea32314f481ec685388aa7a.png';
-import campusImage3 from 'figma:asset/14bb54c4f63925249cfc633b250003332e4ba7bc.png';
+import campusImage1 from '@/assets/5336e6e40575043b0024256ef638117952f8ddc4.png';
+import campusImage2 from '@/assets/41f5e2b83ae7c43a6ea32314f481ec685388aa7a.png';
+import campusImage3 from '@/assets/14bb54c4f63925249cfc633b250003332e4ba7bc.png';
 
 export function CampusSection() {
   const navigate = useNavigate();

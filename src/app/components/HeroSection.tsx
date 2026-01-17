@@ -1,5 +1,5 @@
 import { Button } from '@/app/components/Button';
-import heroBackgroundImage from 'figma:asset/913d3c39d4c7db6726a8aa11fdf554828e5eefc2.png';
+import heroBackgroundImage from '@/assets/913d3c39d4c7db6726a8aa11fdf554828e5eefc2.png';
 
 interface HeroSectionProps {
   onApplyClick: () => void;

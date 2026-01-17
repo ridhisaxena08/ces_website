@@ -8,7 +8,7 @@ import { StudentCarousel } from '@/app/components/StudentCarousel';
 import { CTASection } from '@/app/components/CTASection';
 import { CampusSection } from '@/app/components/CampusSection';
 import { CareerPaths } from '@/app/components/CareerPaths';
-import infoblockImage from 'figma:asset/e71cafeb75095a04bfa277062729385cbf885e42.png';
+import infoblockImage from '@/assets/2.png';
 
 interface HomePageProps {
   onApplyClick: () => void;

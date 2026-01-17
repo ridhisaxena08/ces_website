@@ -2,10 +2,10 @@ import { GraduationCap, BookOpen, Award, Users } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import { Button } from '@/app/components/Button';
 import { useState } from 'react';
-import undergraduateImage from 'figma:asset/28b64cfdc73d6802ae7a38e4a774525eff6c8df6.png';
-import postgraduateImage from 'figma:asset/74dc0f7305e78772d913437703da520814204c24.png';
-import scholarshipImage from 'figma:asset/aeee36990bd05d4d8e388d9512d690fe8f314931.png';
-import researchImage from 'figma:asset/7b329d37fb942bbac61f4a67afb219919741d643.png';
+import undergraduateImage from '@/assets/28b64cfdc73d6802ae7a38e4a774525eff6c8df6.png';
+import postgraduateImage from '@/assets/74dc0f7305e78772d913437703da520814204c24.png';
+import scholarshipImage from '@/assets/aeee36990bd05d4d8e388d9512d690fe8f314931.png';
+import researchImage from '@/assets/7b329d37fb942bbac61f4a67afb219919741d643.png';
 
 interface Program {
   icon: any;
