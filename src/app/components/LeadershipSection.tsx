@@ -133,21 +133,33 @@ export function LeadershipSection() {
             <h4 className="text-2xl text-[#8B2C47]">Institutions Under CES</h4>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded">
+            <a href="https://rcew.ac.in" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan College Of Engineering For Women, Jaipur</p>
-            </div>
-            <div className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded">
+            </a>
+            <a href="https://rietcr.org" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Institute of Engineering & Technology, Jaipur</p>
-            </div>
-            <div className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded">
+            </a>
+            <a href="https://rpc.ac.in" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Pharmacy College, Jaipur</p>
-            </div>
-            <div className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded">
+            </a>
+            <a href="https://rietcr.org" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Institute of Engineering & Technology, Chittorgarh</p>
-            </div>
-            <div className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded">
+            </a>
+            <a href="https://dronacharyapublicschool.com" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Dronacharya Public School</p>
-            </div>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+              <p className="font-medium text-gray-800">Indraprastha Institute Of Nursing, Jaipur</p>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+              <p className="font-medium text-gray-800">Maharaja Surajmal Industrial Training Centre, DEEG</p>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+              <p className="font-medium text-gray-800">Maharaja Surajmal Industrial Training Centre, KUMHER</p>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+              <p className="font-medium text-gray-800">Beena Mahavidhyalaya, Jaipur</p>
+            </a>
           </div>
         </div>
         

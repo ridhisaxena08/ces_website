@@ -9,8 +9,8 @@ const programs = [
   },
   {
     id: 2,
-    title: 'BTech (CSE) / BSc.',
-    description: '(4 Year) In Data Science / AI / ML from JVWU-Jaipur'
+    title: 'BTech (CSE) / BCA.',
+    description: '(4 Year) In CSE / AI / ML/ AIDS from RCEW-Jaipur'
   },
   {
     id: 3,
