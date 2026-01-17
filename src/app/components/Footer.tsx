@@ -1,40 +1,35 @@
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import logo from '@/assets/3b1c4adb05602675010d19d41b6b9c539c3ca44f.png';
+import logo from '@/assets/logo2.png';
 
 export function Footer() {
   const importantLinks = [
-    'Home',
-    'Mandatory Disclosure',
-    'AICTE Approval',
-    'RTU Affiliation',
-    'Blog',
     'Contact Us',
     'Admin Login'
   ];
   
-  const quickLinks = [
-    'Disclaimer',
-    'Terms & Conditions',
-    'Refund Policy',
-    'Privacy Policy',
-    'Placements Notices',
-    'ImpAdmin',
-    'Clubs',
-    'Committee',
-    'Committee Women'
-  ];
+  // const quickLinks = [
+  //   'Disclaimer',
+  //   'Terms & Conditions',
+  //   'Refund Policy',
+  //   'Privacy Policy',
+  //   'Placements Notices',
+  //   'ImpAdmin',
+  //   'Clubs',
+  //   'Committee',
+  //   'Committee Women'
+  // ];
   
   return (
     <footer className="bg-[#0a1929] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* College Info */}
           <div>
-            <div className="flex items-start gap-4 mb-6">
-              <img src={logo} alt="CES Logo" className="w-16 h-16 flex-shrink-0" />
+            <img src={logo} alt="CES Logo" className="w-18 h-18 flex-shrink-0 align-left" />
+            <div className="flex items-start gap-4 mb-6 mt-4">
               <div>
                 <h3 className="text-lg mb-2">CHANDRAWATI EDUCATION SOCIETY</h3>
-                <p className="text-sm text-white/80 mb-1">A Leading Exclusively Girls Engineering College in Jaipur, Rajasthan</p>
+                {/* <p className="text-sm text-white/80 mb-1">A Leading Exclusively Girls Engineering College in Jaipur, Rajasthan</p> */}
                 <p className="text-xs text-white/70">Approved by AICTE / Affiliated to RTU / Recognized by Govt. of Raj.</p>
                 <div className="inline-block bg-red-700 text-white text-xs px-3 py-1 mt-2 rounded">
                   ESTD. 2002
@@ -62,6 +57,7 @@ export function Footer() {
             </div>
           </div>
           
+
           {/* Important Links */}
           <div>
             <h3 className="text-lg mb-6 border-b border-white/20 pb-2">Important links</h3>
@@ -77,21 +73,22 @@ export function Footer() {
           </div>
           
           {/* Quick Links */}
-          <div>
+          {/* <div>
             <h3 className="text-lg mb-6 border-b border-white/20 pb-2">Quick links</h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
+            <ul className="space-y-3"> */}
+              {/* {quickLinks.map((link) => (
                 <li key={link}>
                   <a href="#" className="text-sm text-white/80 hover:text-white transition-colors">
                     {link}
                   </a>
                 </li>
-              ))}
-            </ul>
-          </div>
+              ))} */}
+            {/* </ul>
+          </div> */}
           
           {/* Admission Query & Contact */}
-          <div>
+
+          <div className="text-left">
             <h3 className="text-lg mb-6 border-b border-white/20 pb-2">Admission Query</h3>
             
             <div className="space-y-6">

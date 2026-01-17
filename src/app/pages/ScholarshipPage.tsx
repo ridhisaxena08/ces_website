@@ -3,14 +3,9 @@ import { ArrowLeft } from 'lucide-react';
 
 export function ScholarshipPage() {
   return (
-    <div className="min-h-screen bg-background py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <Link to="/" className="inline-flex items-center text-accent hover:text-accent-foreground mb-8 transition-colors">
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back to Home
-        </Link>
-        
-        <div className="bg-card rounded-xl shadow-lg p-8 sm:p-12">
+    <div className="min-h-screen bg-background py-4 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen mx-auto">        
+        <div className="bg-card rounded-xl p-8 sm:p-12">
           <h1 className="text-4xl md:text-5xl mb-6 text-accent">Empowering Girls to Become Future Leaders</h1>
           
           <p className="text-lg mb-8 leading-relaxed">

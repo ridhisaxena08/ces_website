@@ -1,7 +1,7 @@
-import { GraduationCap, BookOpen, Award, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import { GraduationCap, BookOpen, Award, Users, X } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import { Button } from '@/app/components/Button';
-import { useState } from 'react';
 import undergraduateImage from '@/assets/28b64cfdc73d6802ae7a38e4a774525eff6c8df6.png';
 import postgraduateImage from '@/assets/74dc0f7305e78772d913437703da520814204c24.png';
 import scholarshipImage from '@/assets/aeee36990bd05d4d8e388d9512d690fe8f314931.png';
@@ -59,10 +59,39 @@ Fee Structure:
 ];
 
 export function ProgramsSection() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+
+  const openProgramDetails = (program: Program) => {
+    setSelectedProgram(program);
+  };
+
+  // Close modal when clicking outside content
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeProgramDetails();
+    }
+  };
+
+  // Prevent body scrolling when modal is open
+  React.useEffect(() => {
+    if (selectedProgram) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProgram]);
+
+  const closeProgramDetails = () => {
+    setSelectedProgram(null);
+  };
 
   return (
-    <section className="py-20 bg-background" id="programs">
+    <section className="py-20 bg-background relative" id="programs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl mb-4">Our Programs</h2>
@@ -74,11 +103,10 @@ export function ProgramsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {programs.map((program, index) => {
             const Icon = program.icon;
-            const isExpanded = expandedIndex === index;
             return (
               <div
                 key={index}
-                className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+                className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
               >
                 {!program.hideImage && (
                   <div className="relative h-48 overflow-hidden">
@@ -95,7 +123,7 @@ export function ProgramsSection() {
                     </div>
                   </div>
                 )}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   {program.hideImage && (
                     <div className="mb-4">
                       <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
@@ -103,32 +131,67 @@ export function ProgramsSection() {
                       </div>
                     </div>
                   )}
-                  <h3 className="mb-3">{program.title}</h3>
-                  <p className="text-muted-foreground mb-4">
+                  <h3 className="mb-3 text-lg font-semibold">{program.title}</h3>
+                  <p className="text-muted-foreground mb-4 flex-grow">
                     {program.description}
                   </p>
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                    className="w-full"
+                    onClick={() => openProgramDetails(program)}
+                    className="w-full mt-auto"
                   >
-                    {isExpanded ? 'Hide Details' : 'Explore Program'}
+                    Explore Program
                   </Button>
-                  
-                  {isExpanded && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                        {program.details}
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
             );
           })}
         </div>
       </div>
+
+      {/* Program Details Modal */}
+      {selectedProgram && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
+          onClick={handleBackdropClick}
+        >
+          <div className="bg-card rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="relative">
+              <button
+                onClick={closeProgramDetails}
+                className="absolute top-4 right-4 bg-background/80 hover:bg-background rounded-full p-2 z-10"
+                aria-label="Close"
+              >
+                <X className="h-6 w-6" />
+              </button>
+              
+              <div className="relative h-64">
+                <ImageWithFallback
+                  src={selectedProgram.image}
+                  alt={selectedProgram.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-6 w-full">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                      {React.createElement(selectedProgram.icon, { className: "w-6 h-6 text-accent-foreground" })}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">{selectedProgram.title}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <p className="text-muted-foreground whitespace-pre-line leading-relaxed">
+                  {selectedProgram.details}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

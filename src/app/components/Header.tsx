@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/app/components/Button';
-import logo from '@/assets/3b1c4adb05602675010d19d41b6b9c539c3ca44f.png';
+import logo from '@/assets/logo1.png';
+
+interface NavLink {
+  text: string;
+  href: string;
+  submenu?: Array<{ text: string; href: string }>;
+}
 
 interface HeaderProps {
   onApplyClick: () => void;
@@ -14,14 +20,22 @@ export function Header({ onApplyClick }: HeaderProps) {
   const navLinks = [
     { text: 'Home', href: '/' },
     { text: 'Programs', href: '/#programs' },
-    { text: 'Academics', href: '/#academics' },
+    // { text: 'Academics', href: '/#academics' },
     { text: 'Scholarships', href: '/scholarship' },
     { text: 'Selection Process', href: '/selection-process' },
     { text: 'Career Paths', href: '/career-paths' },
-    { text: 'Results', href: '/#results' },
-    { text: 'Campus', href: '/#campus' },
-    { text: 'Contact', href: '/#contact' },
-    { text: 'FAQs', href: '/#faqs' }
+    // { text: 'Results', href: '/#results' },
+    { 
+      text: 'Campus', 
+      href: '#',
+      submenu: [
+        { text: 'Campus Overview', href: '/#campus' },
+        { text: 'Campus Buildings', href: '/campus-buildings' },
+        { text: 'Library & Study Areas', href: '/library' },
+        { text: 'Hostel Facilities', href: '/hostel-facilities' }
+      ]
+    },
+    { text: 'Contact', href: '/contact' },
   ];
   
   return (
@@ -42,7 +56,29 @@ export function Header({ onApplyClick }: HeaderProps) {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-4">
             {navLinks.map((link) => (
-              link.href.startsWith('/') && !link.href.includes('#') ? (
+              link.submenu ? (
+                <div key={link.text} className="relative group">
+                  <button className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors">
+                    {link.text}
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-1">
+                      {link.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.text}
+                          to={subItem.href}
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-gray-50"
+                        >
+                          {subItem.text}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : link.href.startsWith('/') && !link.href.includes('#') ? (
                 <Link
                   key={link.text}
                   to={link.href}
@@ -77,7 +113,23 @@ export function Header({ onApplyClick }: HeaderProps) {
         <div className="lg:hidden bg-white border-t border-border">
           <nav className="flex flex-col px-4 py-4 space-y-3">
             {navLinks.map((link) => (
-              link.href.startsWith('/') && !link.href.includes('#') ? (
+              link.submenu ? (
+                <div key={link.text} className="flex flex-col">
+                  <div className="py-2 text-foreground font-medium">{link.text}</div>
+                  <div className="pl-4 space-y-2 border-l-2 border-gray-100 my-1">
+                    {link.submenu.map((subItem) => (
+                      <Link
+                        key={subItem.text}
+                        to={subItem.href}
+                        className="block py-1.5 text-foreground hover:text-primary transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {subItem.text}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : link.href.startsWith('/') && !link.href.includes('#') ? (
                 <Link
                   key={link.text}
                   to={link.href}

@@ -10,6 +10,9 @@ import { ScholarshipPage } from '@/app/pages/ScholarshipPage';
 import { SelectionProcessPage } from '@/app/pages/SelectionProcessPage';
 import { CareerPathsPage } from '@/app/pages/CareerPathsPage';
 import { HostelFacilitiesPage } from '@/app/pages/HostelFacilitiesPage';
+import { LibraryAndStudyAreasPage } from '@/app/pages/LibraryAndStudyAreasPage';
+import { CampusBuildingsPage } from '@/app/pages/CampusBuildingsPage';
+import { ContactUsPage } from '@/app/pages/ContactUsPage';
 
 export default function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -36,6 +39,9 @@ export default function App() {
             <Route path="/selection-process" element={<SelectionProcessPage />} />
             <Route path="/career-paths" element={<CareerPathsPage />} />
             <Route path="/hostel-facilities" element={<HostelFacilitiesPage />} />
+            <Route path="/library" element={<LibraryAndStudyAreasPage />} />
+            <Route path="/campus-buildings" element={<CampusBuildingsPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
           </Routes>
         </main>
         

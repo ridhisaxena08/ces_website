@@ -11,11 +11,6 @@ const programs = [
     id: 2,
     title: 'BTech (CSE) / BCA.',
     description: '(4 Year) In CSE / AI / ML/ AIDS from RCEW-Jaipur'
-  },
-  {
-    id: 3,
-    title: 'Adv. Certification in AI/ML/DS*',
-    description: '(1.5 Year)'
   }
 ];
 

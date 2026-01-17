@@ -19,7 +19,12 @@ export function CampusSection() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative overflow-hidden rounded-xl shadow-lg group">
+          <div 
+            className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate('/campus-buildings');
+            }}          >
             <img 
               src={campusImage1} 
               alt="RCEW Campus Building View" 
@@ -30,11 +35,17 @@ export function CampusSection() {
               <h3 className="text-xl">Campus Buildings</h3>
               <p className="text-sm opacity-90">Modern Infrastructure</p>
             </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+              <span className="text-white text-lg font-semibold">Click to View Details</span>
+            </div>
           </div>
           
           <div 
             className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
-            onClick={() => navigate('/hostel-facilities')}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate('/hostel-facilities');
+              }}
           >
             <img 
               src={campusImage2} 
@@ -51,7 +62,13 @@ export function CampusSection() {
             </div>
           </div>
           
-          <div className="relative overflow-hidden rounded-xl shadow-lg group">
+          <div 
+            className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate('/library');
+            }}
+          >
             <img 
               src={campusImage3} 
               alt="RCEW Library & Study Areas" 
@@ -61,6 +78,9 @@ export function CampusSection() {
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-xl">Library & Study Areas</h3>
               <p className="text-sm opacity-90">Excellent Learning Environment</p>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+              <span className="text-white text-lg font-semibold">Click to View Details</span>
             </div>
           </div>
         </div>

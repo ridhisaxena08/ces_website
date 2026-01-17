@@ -156,18 +156,6 @@ export function CareerPaths({ isOpen, onClose }: CareerPathsProps) {
               ))}
             </div>
           </div>
-
-          {/* CTA */}
-          <div className="text-center">
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={onClose}
-              className="bg-[#8B0000] hover:bg-[#6B0000]"
-            >
-              Close
-            </Button>
-          </div>
         </div>
       </div>
     </div>
