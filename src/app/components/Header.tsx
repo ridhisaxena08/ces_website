@@ -18,10 +18,10 @@ export function Header({ onApplyClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const navLinks = [
-    { text: 'Home', href: '/' },
+    { text: 'Home', href: '/#' },
     { text: 'Programs', href: '/#programs' },
     // { text: 'Academics', href: '/#academics' },
-    { text: 'Scholarships', href: '/scholarship' },
+    { text: 'Scholarships', href: '/scholarships' },
     { text: 'Selection Process', href: '/selection-process' },
     { text: 'Career Paths', href: '/career-paths' },
     // { text: 'Results', href: '/#results' },
@@ -29,7 +29,7 @@ export function Header({ onApplyClick }: HeaderProps) {
       text: 'Campus', 
       href: '#',
       submenu: [
-        { text: 'Campus Overview', href: '/#campus' },
+        { text: 'Campus Overview', href: '/campus' },
         { text: 'Campus Buildings', href: '/campus' },
         { text: 'Library & Study Areas', href: '/library' },
         { text: 'Hostel Facilities', href: '/hostel-facilities' }
