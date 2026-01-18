@@ -23,7 +23,7 @@ export function CampusSection() {
             className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
             onClick={() => {
               window.scrollTo(0, 0);
-              navigate('/campus-buildings');
+              navigate('/campus');
             }}          >
             <img 
               src={campusImage1} 

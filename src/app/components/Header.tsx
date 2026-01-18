@@ -30,7 +30,7 @@ export function Header({ onApplyClick }: HeaderProps) {
       href: '#',
       submenu: [
         { text: 'Campus Overview', href: '/#campus' },
-        { text: 'Campus Buildings', href: '/campus-buildings' },
+        { text: 'Campus Buildings', href: '/campus' },
         { text: 'Library & Study Areas', href: '/library' },
         { text: 'Hostel Facilities', href: '/hostel-facilities' }
       ]
