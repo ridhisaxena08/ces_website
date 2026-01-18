@@ -28,13 +28,6 @@ export function CTASection({ onApplyClick, onCampusVisitClick }: CTASectionProps
             >
               Apply Now
             </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              onClick={onCampusVisitClick}
-            >
-              Schedule Campus Visit
-            </Button>
           </div>
         </div>
       </div>
