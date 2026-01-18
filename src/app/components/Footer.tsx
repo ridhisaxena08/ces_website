@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logo from '@/assets/logo2.png';
 
 export function Footer() {
@@ -64,9 +65,25 @@ export function Footer() {
             <ul className="space-y-3">
               {importantLinks.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-sm text-white/80 hover:text-white transition-colors">
-                    {link}
-                  </a>
+                  {link === 'Contact Us' ? (
+                    <a 
+                      href="/contact" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = '/contact';
+                      }}
+                      className="text-sm text-white/80 hover:text-white transition-colors cursor-pointer"
+                    >
+                      {link}
+                    </a>
+                  ) : (
+                    <Link 
+                      to="/admin" 
+                      className="text-sm text-white/80 hover:text-white transition-colors"
+                    >
+                      {link}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

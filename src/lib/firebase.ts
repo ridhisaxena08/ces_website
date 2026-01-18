@@ -1,5 +1,7 @@
+// src/lib/firebase.ts
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,10 +18,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firestore
-export const db = getFirestore(app);
+const db = getFirestore(app);
+
+// Initialize Auth
+const auth = getAuth(app);
 
 // Function to save application to Firestore
-export const saveApplication = async (applicationData: any) => {
+const saveApplication = async (applicationData: any) => {
   try {
     const docRef = await addDoc(collection(db, "application_enq"), {
       ...applicationData,
@@ -28,14 +33,14 @@ export const saveApplication = async (applicationData: any) => {
     });
     console.log("Document written with ID: ", docRef.id);
     return docRef.id;
-  } catch (e) {
-    console.error("Error adding document: ", e);
-    throw e;
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    throw error;
   }
 };
 
 // Function to save contact form submission to Firestore
-export const saveContact = async (contactData: any) => {
+const saveContact = async (contactData: any) => {
   try {
     const docRef = await addDoc(collection(db, "contact_enq"), {
       ...contactData,
@@ -44,8 +49,47 @@ export const saveContact = async (contactData: any) => {
     });
     console.log("Contact form submitted with ID: ", docRef.id);
     return docRef.id;
-  } catch (e) {
-    console.error("Error submitting contact form: ", e);
-    throw e;
+  } catch (error) {
+    console.error("Error submitting contact form: ", error);
+    throw error;
   }
+};
+
+// Function to get all applications
+const getApplications = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "application_enq"));
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error("Error getting documents: ", error);
+    throw error;
+  }
+};
+
+// Function to get all contacts
+const getContacts = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "contact_enq"));
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error("Error getting contact messages: ", error);
+    throw error;
+  }
+};
+
+// Export the initialized services and functions
+export { 
+  app, 
+  db, 
+  auth, 
+  saveApplication, 
+  saveContact,  // Make sure this is included in exports
+  getApplications,
+  getContacts
 };

@@ -44,13 +44,13 @@ export function ProgramsList({ onApplyClick }: ProgramsListProps) {
               >
                 View Programs
               </Button>
-              <Button 
+              {/* <Button 
                 variant="primary" 
                 size="lg"
                 className="bg-[#8B0000] hover:bg-[#6B0000] ml-4"
               >
                 Fee Structure
-              </Button>
+              </Button> */}
             </div>
           </div>
           
