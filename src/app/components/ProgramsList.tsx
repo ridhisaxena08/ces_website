@@ -11,23 +11,27 @@ const programs = [
     id: 2,
     title: 'BTech',
     description: '(4 Year) In CSE(AI,ML,AIDS,Core)/Civil/Electronics/Electrical from RCEW-Jaipur'
-  }
+  },
   {
     id: 3,
     title: 'BCA',
-  }
+    description: ''
+  },
   {
     id: 4,
     title: 'MTech',
-  }
+    description: ''
+  },
   {
     id: 5,
     title: 'MBA',
-  }
-   {
+    description: ''
+  },
+  {
     id: 6,
     title: 'MCA',
-  }
+    description: ''
+  },
 ];
 
 interface ProgramsListProps {

@@ -43,7 +43,7 @@ export function HeroSection({ onApplyClick }: HeroSectionProps) {
                   Apply Now
                 </Button>
                 <Button 
-                  variant="outline" 
+                  variant="secondary" 
                   size="lg"
                   onClick={scrollToPrograms}
                   className="w-full sm:w-auto"
@@ -54,10 +54,10 @@ export function HeroSection({ onApplyClick }: HeroSectionProps) {
             </div>
           </div>
           
-          <div className="text-right">
-            <h1 className="text-2xl md:text-3xl font-light italic opacity-90">
+          <div className="text-left">
+            <h1 className="text-3xl md:text-3xl font-bold">
               Igniting Futures: <br/>
-              <span className="text-3xl md:text-4xl font-bold">
+              <span className="text-1xl md:text-2xl font-bold">
                 Where Women Lead in Tech and Beyond
               </span>
             </h1>
