@@ -9,10 +9,44 @@ import {
   Users,
   Bed,
   Loader2,
+  X,
+  Download,
 } from 'lucide-react';
+import Link from 'next/link';
 import { getStorageImages } from '@/lib/firebase';
 import { LazyImage } from '@/components/LazyImage';
 import { ImageViewer } from '@/components/ImageViewer';
+
+function DownloadAlert() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="bg-[#fdfce8] text-black p-3 w-full flex justify-between items-center">
+      <div className="flex items-center space-x-2">
+        <Download className="h-5 w-5" />
+        <span>Download the Latest Hostel Fee Brochure</span>
+      </div>
+      <div className="flex items-center space-x-4">
+        <a
+          href="/assets/fees/hostel_fee.docx"
+          download
+          className="px-4 py-1 bg-white text-red rounded-md hover:bg-blue-50 transition-colors text-sm font-medium flex items-center"
+        >
+          Download Now
+        </a>
+        <button
+          onClick={() => setIsVisible(false)}
+          className="text-white hover:text-blue-200 transition-colors"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function HostelFacilitiesPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'rooms' | 'gallery'>('overview');
@@ -95,7 +129,8 @@ export function HostelFacilitiesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
+      <DownloadAlert />
       {/* Hero */}
       <div className="bg-gradient-to-r from-primary to-primary/90 text-white py-20">
         <div className="max-w-6xl mx-auto px-4">

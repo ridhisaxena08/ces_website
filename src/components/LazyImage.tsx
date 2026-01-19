@@ -21,116 +21,63 @@ export function LazyImage({
   effect = 'opacity',
   placeholder,
 }: LazyImageProps) {
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
   
-  // Check if this is a campus page image that should bypass cache
-  const isCampusImage = src.toLowerCase().includes('campus') || 
-                       src.toLowerCase().includes('campusbuilding') || 
-                       src.toLowerCase().includes('campus-building') ||
-                       src.toLowerCase().includes('campus/building') ||
-                       (typeof window !== 'undefined' && window.location.pathname.toLowerCase().includes('campus'));
-  
-  // Skip cache for campus images
-  const skipCache = isCampusImage;
-  
-  // Create a stable cache key that changes only when the src changes
-  const cacheKey = `image-cache-${btoa(src)}`;
-  
-  // Try to get the image from cache first (only if not skipping cache)
-  const [cachedUrl, setCachedUrl] = useState<string | null>(null);
-  
-  // Clear any existing cache for campus images on mount
+  // Always bypass cache for all images
   useEffect(() => {
-    if (isCampusImage && typeof window !== 'undefined') {
+    if (!src) return;
+    
+    // Create a completely fresh URL with timestamp and random number
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 10000);
+    const separator = src.includes('?') ? '&' : '?';
+    const newUrl = `${src}${separator}_nc=${timestamp}-${random}`;
+    
+    setImageUrl(newUrl);
+    
+    // Clear any cached versions in localStorage
+    if (typeof window !== 'undefined') {
+      const cacheKey = `image-cache-${btoa(src)}`;
       try {
         localStorage.removeItem(cacheKey);
       } catch (e) {
         console.warn('Failed to clear image cache', e);
       }
     }
-  }, [isCampusImage, cacheKey]);
+  }, [src]);
 
-  // Preload the image in the background
+  // Handle image loading
   useEffect(() => {
-    if (!src) return;
+    if (!imageUrl) return;
     
-    // For campus images, never use cache
-    if (isCampusImage) {
-      const img = new Image();
-      const timestamp = Date.now();
-      const separator = src.includes('?') ? '&' : '?';
-      const imageUrl = `${src}${separator}_nc=${timestamp}-${Math.floor(Math.random() * 1000)}`;
-      
-      img.onload = () => setCachedUrl(imageUrl);
-      img.onerror = () => setCachedUrl(src); // Fallback to original src if load fails
-      img.src = imageUrl;
-      
-      return () => {
-        img.onload = null;
-        img.onerror = null;
-      };
-    }
-    
-    // For non-campus images, use the cache if available
-    if (cachedUrl) return;
-    
-    // Try to get from cache first for non-campus images
-    try {
-      const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        setCachedUrl(cached);
-        return;
-      }
-    } catch (e) {
-      console.warn('Failed to read from cache', e);
-    }
-    
-    // If no cache, load fresh and cache it
     const img = new Image();
-    const timestamp = Date.now();
-    const separator = src.includes('?') ? '&' : '?';
-    const imageUrl = `${src}${separator}t=${timestamp}`;
     
+    const onLoad = () => {
+      setIsLoaded(true);
+      setIsError(false);
+    };
+    
+    const onError = () => {
+      setIsError(true);
+      setIsLoaded(true);
+      
+      // If the cache-busted URL fails, try the original URL as fallback
+      if (imageUrl !== src) {
+        setImageUrl(src);
+      }
+    };
+    
+    img.onload = onLoad;
+    img.onerror = onError;
     img.src = imageUrl;
     
-    // When image loads, cache its URL if not skipping cache
-    const onLoad = () => {
-      if (!skipCache) {
-        try {
-          // Store the actual URL in localStorage for future use
-          localStorage.setItem(cacheKey, imageUrl);
-          setCachedUrl(imageUrl);
-        } catch (e) {
-          // In case of quota exceeded or other errors, just continue
-          console.warn('Failed to cache image URL', e);
-        }
-      } else {
-        // If skipping cache, just update the URL without caching
-        setCachedUrl(imageUrl);
-      }
-    };
-    
-    img.addEventListener('load', onLoad);
-    
     return () => {
-      img.removeEventListener('load', onLoad);
+      img.onload = null;
+      img.onerror = null;
     };
-  }, [src, cacheKey, cachedUrl, skipCache]);
-  
-  // Handle image load
-  const handleLoad = () => {
-    setIsLoaded(true);
-  };
-  
-  // Handle image error
-  const handleError = () => {
-    setIsError(true);
-    setIsLoaded(true);
-  };
-  
-  // Use the cached URL if available, otherwise use the original src
-  const imageUrl = cachedUrl || src;
+  }, [imageUrl, src]);
 
   // If there was an error loading the image, show a placeholder
   if (isError) {
@@ -145,22 +92,20 @@ export function LazyImage({
   }
 
   return (
-    <div className={`relative ${className}`} style={{ width, height }}>
-      {/* Lazy loaded image */}
+    <div className="relative" style={{ width, height }}>
       <LazyLoadImage
-        src={imageUrl}
+        src={imageUrl || src}
         alt={alt}
-        width={width}
-        height={height}
+        className={`${className} transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        width="100%"
+        height="100%"
         effect={effect}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        placeholder={placeholder || (
-          <div className="w-full h-full bg-gray-100 animate-pulse"></div>
-        )}
+        placeholder={placeholder}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => {
+          setIsError(true);
+          setIsLoaded(true);
+        }}
       />
       
       {/* Loading indicator (only shows while loading) */}
