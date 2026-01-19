@@ -116,22 +116,6 @@ export function Footer() {
                 <p className="text-sm text-white/80 mb-1">Contact Number:</p>
                 <p className="text-sm text-white/80">+91 9001099930 +91 6367475054</p>
               </div>
-              
-              <div>
-                <h4 className="text-base mb-3 border-b border-white/20 pb-2">For Online Examination</h4>
-                <p className="text-sm mb-1">Mr. Aleem Usmani</p>
-                <p className="text-sm text-white/80 mb-1">Email: rcewonline@rcew.ac.in</p>
-                <p className="text-sm text-white/80 mb-1">Contact Number:</p>
-                <p className="text-sm text-white/80">+91 9001099958</p>
-              </div>
-              
-              <div>
-                <h4 className="text-base mb-3 border-b border-white/20 pb-2">Training And Placement</h4>
-                <p className="text-sm mb-1">Ms. Neeti Bohra</p>
-                <p className="text-sm text-white/80 mb-1">Email: tpo@rcew.ac.in</p>
-                <p className="text-sm text-white/80 mb-1">Contact Number:</p>
-                <p className="text-sm text-white/80">+91 9001880055</p>
-              </div>
             </div>
           </div>
         </div>
@@ -144,16 +128,20 @@ export function Footer() {
             </p>
             
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a 
+                href="https://www.instagram.com/rcewjaipur1?igsh=MWw3c3V4OTRkZHpieA==" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a 
+                href="https://www.linkedin.com/in/director-rcew-0478a234?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>

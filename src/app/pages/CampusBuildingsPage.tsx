@@ -1,9 +1,11 @@
-import { Building2, MapPin, ArrowRight, ChevronDown, ChevronUp, LampFloor } from 'lucide-react';
+import { Building2, MapPin, ArrowRight, ChevronDown, ChevronUp, LampFloor, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 export function CampusBuildingsPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const [expandedBuilding, setExpandedBuilding] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const buildings = [
     {
@@ -53,11 +55,64 @@ export function CampusBuildingsPage() {
           departments: ['Incubation Center', 'Startup Hub']
         }
       ]
+    },
+        {
+      id: 'admin',
+      name: 'Admin Block',
+      description: 'Admission Cell, Seminar Halls, Directors Office, TPO Cell, Chairmen Office',
+      image: '/src/assets/research-center.jpg',
+      floors: [
+        {
+          level: 'Ground Floor',
+          departments: ['Admission Cell', 'Directors Office', 'TPO Cell', 'Chairmen Office']
+        },
+        {
+          level: 'First Floor',
+          departments: ['Seminar Halls']
+        },
+        {
+          level: 'Second Floor',
+          departments: ['Library','Physics Lab']
+        }
+      ]
     }
   ];
 
   const toggleBuilding = (buildingId: string) => {
     setExpandedBuilding(expandedBuilding === buildingId ? null : buildingId);
+  };
+
+  // Sample gallery images (replace with actual image paths)
+  const galleryImages = [
+    { id: 1, src: '/campus/campus1.jpg', alt: 'Main Campus Building', category: 'campus' },
+    { id: 2, src: '/campus/academic-block.jpg', alt: 'Academic Block', category: 'academic' },
+    { id: 3, src: '/campus/library.jpg', alt: 'Library', category: 'academic' },
+    { id: 4, src: '/campus/lab.jpg', alt: 'Computer Lab', category: 'labs' },
+    { id: 5, src: '/campus/auditorium.jpg', alt: 'Auditorium', category: 'auditorium' },
+  ];
+
+  const categories = ['all', ...new Set(galleryImages.map(img => img.category))];
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const filteredImages = activeCategory === 'all' 
+    ? galleryImages 
+    : galleryImages.filter(img => img.category === activeCategory);
+
+  const openImage = (imageId: number) => {
+    const index = galleryImages.findIndex(img => img.id === imageId);
+    setCurrentImageIndex(index);
+    setSelectedImage(galleryImages[index].src);
+  };
+
+  const navigateImage = (direction: 'prev' | 'next') => {
+    let newIndex = currentImageIndex;
+    if (direction === 'prev') {
+      newIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    } else {
+      newIndex = (currentImageIndex + 1) % galleryImages.length;
+    }
+    setCurrentImageIndex(newIndex);
+    setSelectedImage(galleryImages[newIndex].src);
   };
 
   return (
@@ -77,7 +132,7 @@ export function CampusBuildingsPage() {
         {/* Tabs Navigation */}
         <div className="border-b border-gray-200 mb-8">
           <nav className="-mb-px flex space-x-8">
-            {['overview', 'buildings'].map((tab) => (
+            {['overview', 'buildings', 'gallery'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -160,6 +215,88 @@ export function CampusBuildingsPage() {
             </div>
           )}
 
+          {/* Gallery Tab */}
+          {activeTab === 'gallery' && (
+            <div className="space-y-8">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-semibold">Campus Gallery</h2>
+                <div className="flex space-x-2 overflow-x-auto pb-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                        activeCategory === category
+                          ? 'bg-primary text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {filteredImages.map((image) => (
+                  <div 
+                    key={image.id} 
+                    className="group relative overflow-hidden rounded-lg cursor-pointer aspect-square bg-gray-100"
+                    onClick={() => openImage(image.id)}
+                  >
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                      <span className="text-white font-medium">View</span>
+                    </div>
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {selectedImage && (
+                <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+                  <button 
+                    onClick={() => setSelectedImage(null)}
+                    className="absolute top-4 right-4 text-white hover:text-gray-300"
+                  >
+                    <X className="w-8 h-8" />
+                  </button>
+                  
+                  <button 
+                    onClick={() => navigateImage('prev')}
+                    className="absolute left-4 text-white hover:text-gray-300 p-2"
+                  >
+                    <ChevronLeft className="w-8 h-8" />
+                  </button>
+                  
+                  <div className="max-w-4xl max-h-[90vh] flex items-center justify-center">
+                    <img 
+                      src={selectedImage} 
+                      alt="" 
+                      className="max-w-full max-h-[90vh] object-contain"
+                    />
+                  </div>
+                  
+                  <button 
+                    onClick={() => navigateImage('next')}
+                    className="absolute right-4 text-white hover:text-gray-300 p-2"
+                  >
+                    <ChevronRight className="w-8 h-8" />
+                  </button>
+                  
+                  <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+                    <div className="bg-black/50 text-white px-4 py-2 rounded-full text-sm">
+                      {galleryImages[currentImageIndex].alt}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          
           {/* Buildings Tab */}
           {activeTab === 'buildings' && (
             <div className="space-y-8">

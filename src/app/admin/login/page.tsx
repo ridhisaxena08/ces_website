@@ -82,13 +82,6 @@ export default function AdminLogin() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Or{' '}
-              <a href="#" className="font-medium text-primary hover:text-primary-500">
-                contact support
-              </a>{' '}
-              if you need help
-            </p>
           </div>
 
           <form className="space-y-6" onSubmit={handleLogin}>

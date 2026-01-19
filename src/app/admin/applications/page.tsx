@@ -12,6 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 interface Application {
   id: string;
   name: string;
+  studentFullName?: string;
   emailAddress: string;
   mobileNumber: string;
   submittedAt: string;
@@ -176,66 +177,66 @@ export default function AdminApplications() {
   const excludedFields = ['id', 'status'];
 
   return (
-    <div className="p-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h1 className="text-2xl font-bold">Applications</h1>
-<div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-  <div className="relative flex-1">
-    <input
-      type="text"
-      placeholder="Search applications..."
-      className="pl-10 pr-4 py-2 border rounded-lg w-full"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-    />
-    <svg
-      className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-      />
-    </svg>
-  </div>
-  <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-    <DatePicker
-      selectsRange={true}
-      startDate={startDate}
-      endDate={endDate}
-      onChange={(update) => {
-        setDateRange(update);
-        setDateFilter('custom');
-      }}
-      isClearable={true}
-      placeholderText="Select date range"
-      className="border rounded-lg px-4 py-2 w-full sm:w-48"
-    />
-    <select
-      className="border rounded-lg px-4 py-2 w-full sm:w-40"
-      value={dateFilter}
-      onChange={(e) => {
-        setDateFilter(e.target.value);
-        setDateRange([null, null]);
-      }}
-    >
-      <option value="all">All Time</option>
-      <option value="7days">Last 7 Days</option>
-      <option value="30days">Last 30 Days</option>
-      <option value="90days">Last 90 Days</option>
-      <option value="yearly">This Year</option>
-      <option value="custom" disabled={!dateRange[0] || !dateRange[1]}>
-        {dateRange[0] && dateRange[1] 
-          ? `${format(dateRange[0], 'MMM d')} - ${format(dateRange[1], 'MMM d, yyyy')}`
-          : 'Custom Range'}
-      </option>
-    </select>
-  </div>
-</div>
+    <div className="p-3 sm:p-6">
+      <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row justify-between items-start sm:items-center mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold">Applications</h1>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <div className="relative w-full sm:flex-1">
+            <input
+              type="text"
+              placeholder="Search applications..."
+              className="pl-10 pr-4 py-2 border rounded-lg w-full"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <svg
+              className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <DatePicker
+              selectsRange={true}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={(update) => {
+                setDateRange(update);
+                setDateFilter('custom');
+              }}
+              isClearable={true}
+              placeholderText="Select date range"
+              className="border rounded-lg px-4 py-2 w-full sm:w-48"
+            />
+            <select
+              className="border rounded-lg px-4 py-2 w-full sm:w-40"
+              value={dateFilter}
+              onChange={(e) => {
+                setDateFilter(e.target.value);
+                setDateRange([null, null]);
+              }}
+            >
+              <option value="all">All Time</option>
+              <option value="7days">Last 7 Days</option>
+              <option value="30days">Last 30 Days</option>
+              <option value="90days">Last 90 Days</option>
+              <option value="yearly">This Year</option>
+              <option value="custom" disabled={!dateRange[0] || !dateRange[1]}>
+                {dateRange[0] && dateRange[1] 
+                  ? `${format(dateRange[0], 'MMM d')} - ${format(dateRange[1], 'MMM d, yyyy')}`
+                  : 'Custom Range'}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {loading ? (
@@ -244,44 +245,48 @@ export default function AdminApplications() {
         </div>
       ) : (
         <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-100">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+          <div className="overflow-x-auto -mx-2 sm:mx-0">
+            <table className="min-w-full divide-y divide-gray-200 text-sm">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phone</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Submitted</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider pr-8">Actions</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Name</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider hidden sm:table-cell">Email</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Phone</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider hidden md:table-cell">Submitted</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Status</th>
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
                 {applications.length > 0 ? (
                   applications.map((app) => (
                     <tr key={app.id} className="hover:bg-gray-50 transition-colors duration-150">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">{app.emailAddress}</div>
-                            <div className="text-xs text-gray-500">{format(new Date(app.submittedAt), 'MMM d, yyyy')}</div>
-                          </div>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          {app.studentFullName || app.name}
+                        </div>
+                        <div className="text-xs text-gray-500 sm:hidden">
+                          {app.emailAddress}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 font-medium">{app.mobileNumber || 'N/A'}</div>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                        <div className="text-sm text-gray-600 truncate max-w-[150px]">{app.emailAddress}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-600">
-                          {format(new Date(app.submittedAt), 'MMM d, yyyy')}
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{app.mobileNumber || 'N/A'}</div>
+                      </td>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                        <div className="text-xs text-gray-500">{format(new Date(app.submittedAt), 'MMM d, yyyy')}</div>
+                      </td>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="flex justify-start sm:justify-start">
+                          {getStatusBadge(app.status)}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(app.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2 text-right pr-8">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium space-x-1 sm:space-x-2 text-right">
                         <button
                           onClick={() => openModal(app)}
-                          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-150"
+                          className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-150"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

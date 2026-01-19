@@ -1,7 +1,60 @@
+import { useEffect, useState } from 'react';
 import { Target, Award, BookOpen, Users, Building2, GraduationCap } from 'lucide-react';
 import chairmanPhoto from '@/assets/6ec240e1523b1edc178289599ef478c5bff42ede.png';
 
 export function LeadershipSection() {
+const [stats, setStats] = useState({
+  students: 0,
+  institutions: 0,
+  years: 0,
+  opacity: 0 // New state for fade effect
+});
+
+useEffect(() => {
+  const duration = 2000; // 2 seconds
+  const start = 0;
+  
+  const animateCount = (startTime: number) => {
+    const now = performance.now();
+    const progress = Math.min((now - startTime) / duration, 1);
+    
+    // Cubic ease-out for smooth deceleration
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    // Smoother fade-in effect
+    const fadeIn = Math.min(progress * 2, 1); // Faster fade-in than the count
+    
+    const current = start + (1500 * easeOut);
+    
+    setStats({
+      students: Math.min(Math.ceil(current), 1500),
+      institutions: Math.min(Math.ceil((current / 300) * 1.1), 5), // Slight delay
+      years: Math.min(Math.ceil((current / 75) * 0.9), 20), // Slight lead
+      opacity: fadeIn
+    });
+
+    if (progress < 1) {
+      requestAnimationFrame(() => animateCount(startTime));
+    }
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      setStats(prev => ({ ...prev, opacity: 0 })); // Reset opacity before starting
+      const startTime = performance.now();
+      requestAnimationFrame(() => animateCount(startTime));
+    }
+  }, { threshold: 0.1 });
+
+  const target = document.querySelector('.stats-container');
+  if (target) {
+    observer.observe(target);
+  }
+
+  return () => {
+    if (target) observer.unobserve(target);
+  };
+}, []);
+
   return (
     <section className="py-20 bg-gradient-to-br from-rose-50 to-pink-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +66,7 @@ export function LeadershipSection() {
         </div>
 
         {/* About CES - Hero Section */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+        <div className="bg-white rounded-2xl overflow-hidden mb-12">
           <div className="bg-gradient-to-r from-[#8B2C47] to-[#A63356] p-8 text-white">
             <h3 className="text-3xl mb-3">About Chandrawati Education Society</h3>
             <p className="text-white/90 leading-relaxed text-lg">
@@ -24,17 +77,17 @@ export function LeadershipSection() {
           </div>
           
           <div className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 stats-container">
               <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-[#8B2C47] mb-2">1500+</div>
+                <div className="text-4xl font-bold text-[#8B2C47] mb-2">{stats.students}+</div>
                 <div className="text-muted-foreground">Students Served</div>
               </div>
               <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-[#8B2C47] mb-2">5+</div>
+                <div className="text-4xl font-bold text-[#8B2C47] mb-2">{stats.institutions}+</div>
                 <div className="text-muted-foreground">Institutions</div>
               </div>
               <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-[#8B2C47] mb-2">20+</div>
+                <div className="text-4xl font-bold text-[#8B2C47] mb-2">{stats.years}+</div>
                 <div className="text-muted-foreground">Years of Excellence</div>
               </div>
             </div>
@@ -43,7 +96,7 @@ export function LeadershipSection() {
 
         {/* Vision, Mission, Quality Policy - Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+          <div className="bg-white rounded-xl  p-6 hover:shadow-xl transition-shadow">
             <div className="w-14 h-14 bg-[#8B2C47]/10 rounded-lg flex items-center justify-center mb-4">
               <Target className="w-8 h-8 text-[#8B2C47]" />
             </div>
@@ -55,7 +108,7 @@ export function LeadershipSection() {
             </p>
           </div>
           
-          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+          <div className="bg-white rounded-xl  p-6 hover:shadow-xl transition-shadow">
             <div className="w-14 h-14 bg-[#8B2C47]/10 rounded-lg flex items-center justify-center mb-4">
               <Award className="w-8 h-8 text-[#8B2C47]" />
             </div>
@@ -67,7 +120,7 @@ export function LeadershipSection() {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+          <div className="bg-white rounded-xl  p-6 hover:shadow-xl transition-shadow">
             <div className="w-14 h-14 bg-[#8B2C47]/10 rounded-lg flex items-center justify-center mb-4">
               <BookOpen className="w-8 h-8 text-[#8B2C47]" />
             </div>
@@ -81,7 +134,7 @@ export function LeadershipSection() {
         </div>
 
         {/* Objectives */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
+        <div className="bg-white rounded-2xl  p-8 mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-[#8B2C47]/10 rounded-lg flex items-center justify-center">
               <Users className="w-6 h-6 text-[#8B2C47]" />
@@ -111,7 +164,7 @@ export function LeadershipSection() {
         </div>
 
         {/* Academic Excellence */}
-        <div className="bg-gradient-to-r from-[#8B2C47] to-[#A63356] rounded-2xl shadow-lg p-8 text-white mb-12">
+        <div className="bg-gradient-to-r from-[#8B2C47] to-[#A63356] rounded-2xl  p-8 text-white mb-12">
           <div className="flex items-center gap-3 mb-4">
             <GraduationCap className="w-10 h-10" />
             <h4 className="text-2xl">Academic Excellence</h4>
@@ -125,7 +178,7 @@ export function LeadershipSection() {
         </div>
 
         {/* Institutions Under CES */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
+        <div className="bg-white rounded-2xl  p-8 mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-[#8B2C47]/10 rounded-lg flex items-center justify-center">
               <Building2 className="w-6 h-6 text-[#8B2C47]" />
@@ -166,7 +219,7 @@ export function LeadershipSection() {
         {/* Chairman Profile */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+            <div className="bg-white rounded-xl overflow-hidden ">
               <div className="relative h-96 overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300">
                 <img 
                   src={chairmanPhoto}
@@ -182,7 +235,7 @@ export function LeadershipSection() {
             </div>
           </div>
 
-          <div className="md:col-span-2 bg-white rounded-xl p-8 shadow-lg flex items-center">
+          <div className="md:col-span-2 bg-white rounded-xl p-8  flex items-center">
             <div>
               <h3 className="text-2xl mb-4 text-primary">Message from the Chairman</h3>
               <p className="text-muted-foreground leading-relaxed mb-4">

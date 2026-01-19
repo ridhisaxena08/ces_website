@@ -9,10 +9,13 @@ interface AdmissionFormProps {
 }
 
 export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
+  const [selectedSpecialization, setSelectedSpecialization] = useState('');
+  
   const [formData, setFormData] = useState({
     // Degree and Campus
     firstDegree: '',
     secondDegree: '',
+    specialization: '',
     universityCampus: '',
     
     // Student Details
@@ -66,6 +69,7 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
         setFormData({
           firstDegree: '',
           secondDegree: '',
+          specialization: '',
           universityCampus: '',
           studentFullName: '',
           dateOfBirth: '',
@@ -86,6 +90,7 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
           category: '',
           familyIncome: ''
         });
+        setSelectedSpecialization('');
         setIsSubmitted(false);
         onClose();
       }, 3000);
@@ -98,10 +103,21 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
   };
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    
+    // If changing second degree, reset specialization
+    if (name === 'secondDegree') {
+      setSelectedSpecialization('');
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+  };
+  
+  const degreeSpecializations = {
+    'B.Tech. CSE': ['CSE (Core)', 'CSE (AI)', 'CSE (ML)', 'CSE (AIDS)']
   };
   
   
@@ -166,12 +182,35 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
                 >
                   <option value="">Please select an option</option>
                   <option value="B.Tech. CSE">B.Tech. CSE</option>
-                  <option value="B.Tech. CSE (Spec. in AI)">B.Tech. CSE (Spec. in AI)</option>
-                  <option value="B.Tech. CSE (Spec. in AIDS)">B.Tech. CSE (Spec. in AIDS)</option>
+                  <option value="B.Tech. Electrical">B.Tech. Electrical</option>
+                  <option value="B.Tech. Electronics">B.Tech. Electronics</option>
+                  <option value="B.Tech. Civil">B.Tech. Civil</option>
+                  <option value="M.Tech">M.Tech</option>
                   <option value="BCA">BCA</option>
-                  {/* <option value="BCA (Statistics) (Honors with Research)">B.Sc. (Statistics) (Honors with Research)</option>
-                  <option value="BCA. (Computer Science) (Honors & Research)">B.Sc. (Computer Science) (Honors & Research)</option> */}
+                  <option value="MCA">MCA</option>
+                  <option value="MBA">MBA</option>
+                  <option value="B.Sc">B.Sc</option>
                 </select>
+
+                {formData.secondDegree === 'B.Tech. CSE' && (
+                  <div className="mt-3">
+                    <label className="block mb-2">Select Specialization *</label>
+                    <select
+                      name="specialization"
+                      value={formData.specialization}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <option value="">Select Specialization</option>
+                      {degreeSpecializations['B.Tech. CSE'].map((spec) => (
+                        <option key={spec} value={spec}>
+                          {spec}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
               
               <div className="md:col-span-2">
@@ -479,32 +518,6 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
                   <option value="Between 1 Lakh & 5 Lakh Per Annum">Between 1 Lakh & 5 Lakh Per Annum</option>
                   <option value="Below 1 Lakh Per Annum">Below 1 Lakh Per Annum</option>
                 </select>
-              </div>
-            </div>
-          </section>
-          
-          {/* Document Upload (Optional) */}
-          <section>
-            <h3 className="text-xl mb-4 pb-2 border-b border-border">Documents (Optional)</h3>
-            <div className="space-y-4">
-              <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
-                <Upload className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
-                <p className="text-muted-foreground mb-2">Upload your documents</p>
-                <p className="text-sm text-muted-foreground">
-                  Academic transcripts, certificates, ID proof (PDF, JPG, PNG - Max 5MB each)
-                </p>
-                <input
-                  type="file"
-                  multiple
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  className="hidden"
-                  id="file-upload"
-                />
-                <label htmlFor="file-upload">
-                  <Button variant="outline" size="sm" className="mt-4">
-                    Choose Files
-                  </Button>
-                </label>
               </div>
             </div>
           </section>
