@@ -391,8 +391,8 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
               <div>
                 <label className="block mb-2">12th Class Status *</label>
                 <select
-                  name="twelfthStatus"
-                  value={formData.twelfthStatus}
+                  name="twelthStatus"
+                  value={formData.twelthStatus}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"

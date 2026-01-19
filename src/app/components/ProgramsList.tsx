@@ -4,13 +4,29 @@ import { Target } from 'lucide-react';
 const programs = [
   {
     id: 1,
-    title: 'IIT BS Degree',
+    title: 'IIT BS Degree(Mentorship)',
     description: '(4 Year) Degree From IIT Madras'
   },
   {
     id: 2,
-    title: 'BTech (CSE) / BCA.',
-    description: '(4 Year) In CSE / AI / ML/ AIDS from RCEW-Jaipur'
+    title: 'BTech',
+    description: '(4 Year) In CSE(AI,ML,AIDS,Core)/Civil/Electronics/Electrical from RCEW-Jaipur'
+  }
+  {
+    id: 3,
+    title: 'BCA',
+  }
+  {
+    id: 4,
+    title: 'MTech',
+  }
+  {
+    id: 5,
+    title: 'MBA',
+  }
+   {
+    id: 6,
+    title: 'MCA',
   }
 ];
 

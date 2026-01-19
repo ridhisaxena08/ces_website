@@ -34,10 +34,10 @@ export function ScholarshipPage() {
             <div className="bg-accent/5 p-6 rounded-lg mb-8">
               <h3 className="text-2xl mb-4">1. Academic Fee</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                The academic fee under The SEEP is determined based on the student's scholarship eligibility status.
+                The academic fee under The CES is determined based on the student's scholarship eligibility status.
               </p>
               <p className="mb-4 leading-relaxed">
-                <strong>Scholarships of up to 100%</strong> (Absolute Zero Academic Fee) will be awarded to eligible students enrolled in the IIT BS + B.Tech./B.Sc. Dual Degree Program, subject to fulfillment of the prescribed criteria. The academic fee covers all charges applicable to the IIT BS degree (excluding the one time application fee) and the university degree as prescribed by the respective institutions.
+                <strong>Scholarships of up to 100%</strong> (Absolute Zero Academic Fee) will be awarded to eligible students enrolled in the IIT BS + B.Tech./BCA. Dual Degree Program, subject to fulfillment of the prescribed criteria. The academic fee covers all charges applicable to the IIT BS degree (excluding the one time application fee) and the university degree as prescribed by the respective institutions.
               </p>
               <p className="mb-4 leading-relaxed">
                 Scholarship eligibility shall be evaluated based on the following parameters:
@@ -65,12 +65,12 @@ export function ScholarshipPage() {
             </div>
 
             <div className="bg-accent/5 p-6 rounded-lg">
-              <h3 className="text-2xl mb-4">2. a) Accommodation & b) Campus Charges</h3>
+              <h3 className="text-2xl mb-4">2. Accommodation & Campus Charges</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 These charges are uniform for all students and depend only on the type of room occupancy chosen.
               </p>
 
-              <h4 className="text-xl mb-3">Available Options:</h4>
+              <h4 className="text-xl mb-3">a) Available Options:</h4>
               <ul className="list-disc list-inside mb-6 space-y-2 text-muted-foreground">
                 <li>Single Seater (AC)</li>
                 <li>Single Seater (Attached+Non-AC)</li>
@@ -80,7 +80,7 @@ export function ScholarshipPage() {
                 <li>2-Seater Rooms (AC)</li>
               </ul>
 
-              <h4 className="text-xl mb-3">Accommodation & Campus Charges Includes:</h4>
+              <h4 className="text-xl mb-3">b) Accommodation & Campus Charges Includes:</h4>
               <ul className="list-disc list-inside mb-6 space-y-2 text-muted-foreground">
                 <li>Hostel Accommodation</li>
                 <li>Mess & Laundry</li>
@@ -100,7 +100,7 @@ export function ScholarshipPage() {
 
           <div className="bg-accent text-accent-foreground p-6 rounded-lg text-center">
             <p className="text-lg">
-              The SEEP follows a clear and student-friendly scholarship & fee structure designed to ensure fairness, transparency, and accessibility for all students.
+              The CES follows a clear and student-friendly scholarship & fee structure designed to ensure fairness, transparency, and accessibility for all students.
             </p>
           </div>
         </div>

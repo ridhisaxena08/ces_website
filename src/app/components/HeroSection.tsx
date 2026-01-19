@@ -23,30 +23,44 @@ export function HeroSection({ onApplyClick }: HeroSectionProps) {
         />
       </div>
       
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6">
-            Igniting Futures: Where Women Lead in Tech and Beyond
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90">
-            Join a community dedicated to academic excellence, innovation, and personal growth. 
-            Discover programs designed to shape your future and unlock your potential.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              variant="secondary" 
-              size="lg"
-              onClick={onApplyClick}
-            >
-              Apply Now
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              onClick={scrollToPrograms}
-            >
-              Explore Programs
-            </Button>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-xl shadow-2xl">
+            <div className="bg-primary/80 p-6 rounded-lg">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">IIT BS Degree</h2>
+              <p className="text-sm md:text-base mb-6">
+                A comprehensive 4-year, full-time, on-campus academic program tailored for students enrolled in IIT BS Degrees. 
+                It provides an immersive residential campus environment, well-structured classroom instruction, dedicated mentorship, 
+                and scholarship opportunities, led by distinguished faculty from IITs, IISc, NITs, IIITs, and Central Universities.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  onClick={onApplyClick}
+                  className="w-full sm:w-auto"
+                >
+                  Apply Now
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  onClick={scrollToPrograms}
+                  className="w-full sm:w-auto"
+                >
+                  Explore Programs
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-right">
+            <h1 className="text-2xl md:text-3xl font-light italic opacity-90">
+              Igniting Futures: <br/>
+              <span className="text-3xl md:text-4xl font-bold">
+                Where Women Lead in Tech and Beyond
+              </span>
+            </h1>
           </div>
         </div>
       </div>

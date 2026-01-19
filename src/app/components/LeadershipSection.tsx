@@ -139,22 +139,22 @@ export function LeadershipSection() {
             <a href="https://rietcr.org" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Institute of Engineering & Technology, Jaipur</p>
             </a>
-            <a href="https://rpc.ac.in" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+            <a href="https://www.educatly.com/university/64548/rajasthan-pharmacy-college" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Pharmacy College, Jaipur</p>
             </a>
             <a href="https://rietcr.org" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Rajasthan Institute of Engineering & Technology, Chittorgarh</p>
             </a>
-            <a href="https://dronacharyapublicschool.com" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+            <a href="https://educonnectin.com/schools/rajasthan/jaipur/bhankrota/dronacharya-public-school-0ec64100" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Dronacharya Public School</p>
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+            <a href="https://admission.helpuindia.com/indraprastha-institute-of-nursing-33523/phone" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Indraprastha Institute Of Nursing, Jaipur</p>
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+            <a href="https://www.msitikumher.com/" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Maharaja Surajmal Industrial Training Centre, DEEG</p>
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
+            <a href="https://www.msitikumher.com/" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
               <p className="font-medium text-gray-800">Maharaja Surajmal Industrial Training Centre, KUMHER</p>
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer" className="border-l-4 border-[#8B2C47] bg-gradient-to-r from-pink-50 to-transparent pl-4 py-3 rounded hover:bg-pink-100 transition-colors">
