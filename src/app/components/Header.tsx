@@ -49,7 +49,8 @@ export function Header({ onApplyClick }: HeaderProps) {
               <span className="text-base md:text-xl font-bold text-primary whitespace-nowrap" style={{ fontFamily: 'Georgia, serif' }}>
                 Chandrawati Education Society
               </span>
-              <span className="text-xs text-muted-foreground">Jaipur</span>
+  
+              <span className="text-s font-bold text-black-foreground">Jaipur</span>
             </div>
           </Link>
           
