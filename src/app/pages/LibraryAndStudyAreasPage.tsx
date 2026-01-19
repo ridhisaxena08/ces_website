@@ -1,8 +1,68 @@
-import { BookOpen, Book, BookMarked, BookText, BookOpenText, Headphones, Wifi, Coffee, Image as ImageIcon, Maximize2, Library, BookUp2, Users, Clock as ClockIcon } from 'lucide-react';
-import { useState } from 'react';
+import { BookOpen, Book, BookMarked, BookText, BookOpenText, Headphones, Wifi, Coffee, Image as ImageIcon, Maximize2, Library, BookUp2, Users, Clock as ClockIcon, Loader2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getStorageImages } from '@/lib/firebase';
+import { LazyImage } from '@/components/LazyImage';
+import { ImageViewer } from '@/components/ImageViewer';
 
 export function LibraryAndStudyAreasPage() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [galleryImages, setGalleryImages] = useState<Array<{
+    id: string;
+    url: string;
+    name: string;
+    path: string;
+  }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const showLoading = loading && galleryImages.length === 0;
+
+  // Preload all gallery images in the background when component mounts
+  useEffect(() => {
+    const preloadImages = async () => {
+      try {
+        setLoading(true);
+        const images = await getStorageImages('gallery/library');
+        setGalleryImages(images);
+        
+        // Start preloading images in the background
+        images.forEach((image) => {
+          const img = new Image();
+          img.src = image.url;
+        });
+      } catch (err) {
+        console.error('Error preloading gallery images:', err);
+        setError('Failed to load gallery images');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    preloadImages();
+  }, []);
+  
+  // Handle image click
+  const openImage = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  // Navigate between images
+  const goToNext = () => {
+    if (selectedImageIndex !== null && selectedImageIndex < galleryImages.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1);
+    }
+  };
+
+  const goToPrev = () => {
+    if (selectedImageIndex !== null && selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1);
+    }
+  };
+
+  // Close the image viewer
+  const closeViewer = () => {
+    setSelectedImageIndex(null);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -152,37 +212,50 @@ export function LibraryAndStudyAreasPage() {
           {activeTab === 'gallery' && (
             <div className="space-y-8">
               <h2 className="text-2xl font-semibold">Photo Gallery</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {[
-                  { id: 1, alt: 'Library Interior', category: 'Library' },
-                  { id: 2, alt: 'Reading Area', category: 'Study Spaces' },
-                  { id: 3, alt: 'Group Study Room', category: 'Study Spaces' },
-                  { id: 4, alt: 'Computer Lab', category: 'Facilities' },
-                  { id: 5, alt: 'Book Collection', category: 'Library' },
-                  { id: 6, alt: 'Quiet Study Zone', category: 'Study Spaces' },
-                  { id: 7, alt: 'Library Atrium', category: 'Library' },
-                  { id: 8, alt: 'Reading Lounge', category: 'Study Spaces' },
-                  { id: 9, alt: 'Research Section', category: 'Library' },
-                  { id: 10, alt: 'Study Carrels', category: 'Study Spaces' },
-                  { id: 11, alt: 'Library Entrance', category: 'Library' },
-                  { id: 12, alt: 'Outdoor Seating', category: 'Study Spaces' }
-                ].map((image) => (
-                  <div key={image.id} className="relative group overflow-hidden rounded-lg aspect-square bg-gray-100">
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                      <ImageIcon className="w-12 h-12" />
+              {showLoading ? (
+                <div className="flex justify-center items-center h-64">
+                  <Loader2 className="animate-spin w-8 h-8 text-primary" />
+                </div>
+              ) : error ? (
+                <div className="text-center py-8 text-red-500">{error}</div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {galleryImages.map((image, index) => (
+                    <div 
+                      key={image.id} 
+                      className="relative overflow-hidden rounded-lg aspect-square bg-gray-100 cursor-pointer"
+                      onClick={() => openImage(index)}
+                    >
+                      <LazyImage
+                        src={image.url}
+                        alt={image.name || 'Library image'}
+                        className="w-full h-full"
+                        effect="opacity"
+                        placeholder={
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-primary"></div>
+                          </div>
+                        }
+                      />
                     </div>
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
-                      <Maximize2 className="text-white w-6 h-6 mb-2" />
-                      <span className="text-white font-medium">{image.alt}</span>
-                      <span className="text-sm text-gray-200">{image.category}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
       </div>
+
+      {/* Image Viewer */}
+      {selectedImageIndex !== null && (
+        <ImageViewer
+          images={galleryImages}
+          currentIndex={selectedImageIndex}
+          onClose={closeViewer}
+          onNext={goToNext}
+          onPrev={goToPrev}
+        />
+      )}
     </div>
   );
 }

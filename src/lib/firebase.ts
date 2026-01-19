@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,6 +23,9 @@ const db = getFirestore(app);
 
 // Initialize Auth
 const auth = getAuth(app);
+
+// Initialize Storage
+const storage = getStorage(app);
 
 // Function to save application to Firestore
 const saveApplication = async (applicationData: any) => {
@@ -83,13 +87,68 @@ const getContacts = async () => {
   }
 };
 
+// Function to get gallery images
+const getGalleryImages = async (collectionName: string) => {
+  try {
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error("Error getting gallery images: ", error);
+    throw error;
+  }
+};
+
+// Function to add a new gallery image
+const addGalleryImage = async (collectionName: string, imageData: any) => {
+  try {
+    const docRef = await addDoc(collection(db, collectionName), {
+      ...imageData,
+      createdAt: new Date().toISOString()
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding gallery image: ", error);
+    throw error;
+  }
+};
+
+// Function to get images from Firebase Storage
+const getStorageImages = async (path: string) => {
+  try {
+    const storageRef = ref(storage, path);
+    const result = await listAll(storageRef);
+    
+    const imagePromises = result.items.map(async (itemRef) => {
+      const url = await getDownloadURL(itemRef);
+      return {
+        id: itemRef.name,
+        url,
+        name: itemRef.name,
+        path: itemRef.fullPath
+      };
+    });
+
+    return await Promise.all(imagePromises);
+  } catch (error) {
+    console.error("Error fetching images from storage: ", error);
+    throw error;
+  }
+};
+
 // Export the initialized services and functions
 export { 
   app, 
   db, 
   auth, 
+  storage,
   saveApplication, 
-  saveContact,  // Make sure this is included in exports
+  saveContact,
   getApplications,
-  getContacts
+  getContacts,
+  getGalleryImages,
+  addGalleryImage,
+  getStorageImages
 };

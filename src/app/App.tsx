@@ -21,6 +21,7 @@ import AdminDashboard from '@/app/admin/dashboard/page';
 import AdminApplications from '@/app/admin/applications/page';
 import AdminContacts from '@/app/admin/contacts/page';
 import AdminLogin from '@/app/admin/login/page';
+import { GalleryRoutes } from '@/app/admin/gallery';
 
 // Create Auth Context
 export const AuthContext = createContext<{
@@ -125,6 +126,7 @@ export default function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="applications" element={<AdminApplications />} />
             <Route path="contacts" element={<AdminContacts />} />
+            <Route path="gallery/*" element={<GalleryRoutes />} />
           </Route>
         </Routes>
       </Router>
