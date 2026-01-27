@@ -172,7 +172,7 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
               </div>
               
               <div>
-                <label className="block mb-2">Second Degree (Dual Degree Option) *</label>
+                <label className="block mb-2">Second Degree (Dual Degree Option)</label>
                 <select
                   name="secondDegree"
                   value={formData.secondDegree}
@@ -185,11 +185,11 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
                   <option value="B.Tech. Electrical">B.Tech. Electrical</option>
                   <option value="B.Tech. Electronics">B.Tech. Electronics</option>
                   <option value="B.Tech. Civil">B.Tech. Civil</option>
-                  <option value="M.Tech">M.Tech</option>
+                  <option value="M.Tech">B.Sc</option>
                   <option value="BCA">BCA</option>
                   <option value="MCA">MCA</option>
                   <option value="MBA">MBA</option>
-                  <option value="B.Sc">B.Sc</option>
+                  <option value="B.Sc">M.Tech</option>
                 </select>
 
                 {formData.secondDegree === 'B.Tech. CSE' && (
@@ -234,7 +234,7 @@ export function AdmissionForm({ isOpen, onClose }: AdmissionFormProps) {
             <h3 className="text-xl mb-4 pb-2 border-b border-border">Student Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block mb-2">Student Full Name *</label>
+                <label className="block mb-2">Student Full Name(as per 10th marksheet) *</label>
                 <input
                   type="text"
                   name="studentFullName"

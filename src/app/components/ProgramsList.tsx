@@ -21,7 +21,6 @@ const programs = [
     tag: '4 Years',
     details: [
       'Computer Science & Engineering (AI)',
-      'Computer Science & Engineering (ML)',
       'Computer Science & Engineering (AIDS)',
       'Computer Science & Engineering (Core)',
       'Civil Engineering',
@@ -37,9 +36,6 @@ const programs = [
     tag: '3 Years',
     details: [
       'Core Programming',
-      'Web Development',
-      'Database Management',
-      'Software Engineering'
     ]
   },
   {
@@ -50,9 +46,8 @@ const programs = [
     tag: '2 Years',
     details: [
       'Computer Science & Engineering',
-      'VLSI Design',
       'Power Systems',
-      'Structural Engineering'
+      'Digital Communication',
     ]
   },
   {
@@ -65,7 +60,6 @@ const programs = [
       'Finance',
       'Marketing',
       'Human Resources',
-      'Operations Management'
     ]
   },
   {
@@ -75,10 +69,7 @@ const programs = [
     description: 'Advanced computing and IT management',
     tag: '2 Years',
     details: [
-      'Advanced Programming',
-      'Cloud Computing',
-      'Cybersecurity',
-      'Data Analytics'
+      'Computer Application',
     ]
   },
 ];

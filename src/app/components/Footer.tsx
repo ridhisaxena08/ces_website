@@ -33,19 +33,19 @@ export function Footer() {
                 {/* <p className="text-sm text-white/80 mb-1">A Leading Exclusively Girls Engineering College in Jaipur, Rajasthan</p> */}
                 <p className="text-xs text-white/70">Approved by AICTE / Affiliated to RTU / Recognized by Govt. of Raj.</p>
                 <div className="inline-block bg-red-700 text-white text-xs px-3 py-1 mt-2 rounded">
-                  ESTD. 2002
+                  ESTD. 1999
                 </div>
               </div>
             </div>
             
             <p className="text-sm text-white/90 mb-6">
-              Established in year 2002 Chandrawati Education Society aims to enable the girl empowerment through technical education which will help students to overcome barriers to reach greater heights.
+              Established in year 1999 Chandrawati Education Society aims to enable the girl empowerment through technical education which will help students to overcome barriers to reach greater heights.
             </p>
             
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-white/90" />
-                <span className="text-sm text-white/90">Bhankrota, Ajmer Road, Jaipur Rajasthan. 302026</span>
+                <span className="text-sm text-white/90">C-28 Shakti Apartment, Sector-9, Rohini, New Delhi- 110085</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 flex-shrink-0 text-white/90" />
@@ -110,11 +110,12 @@ export function Footer() {
             
             <div className="space-y-6">
               <div>
-                <p className="text-sm mb-1">Mr. Roshan Jain</p>
-                <p className="text-sm mb-1">Mr. Raghav Dhaker</p>
+                <p className="text-sm mb-1">Mr. Roshan Jain           +91 9001099930</p>
+
+                <p className="text-sm mb-1">Mr. Raghav Dhaker        +91 6367475054</p>
+               <p className="text-sm mb-1">Mrs. Sandeepa         +91 9001099917</p>
                 <p className="text-sm text-white/80 mb-1">Email: admission@rcew.ac.in</p>
-                <p className="text-sm text-white/80 mb-1">Contact Number:</p>
-                <p className="text-sm text-white/80">+91 9001099930 +91 6367475054</p>
+
               </div>
             </div>
           </div>
