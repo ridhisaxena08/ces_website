@@ -1,1 +1,1 @@
-
+A website for Chandrawati Education Society providing information about the Dual Degree Program that allows students to pursue their regular degree from the college along with a Data Science degree from IIT Madras.
