@@ -28,7 +28,7 @@ useEffect(() => {
     setStats({
       students: Math.min(Math.ceil(current), 1500),
       institutions: Math.min(Math.ceil((current / 300) * 1.1), 5), // Slight delay
-      years: Math.min(Math.ceil((current / 75) * 0.9), 20), // Slight lead
+      years: Math.min(Math.ceil((current / 60)), 25), // Updated to reach exactly 25
       opacity: fadeIn
     });
 
