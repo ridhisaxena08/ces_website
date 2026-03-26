@@ -1,6 +1,6 @@
 // src/app/App.tsx
 import { useState, useEffect, createContext, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { app } from '@/lib/firebase';
 import { Header } from '@/app/components/Header';
@@ -22,6 +22,7 @@ import AdminApplications from '@/app/admin/applications/page';
 import AdminContacts from '@/app/admin/contacts/page';
 import AdminLogin from '@/app/admin/login/page';
 import { GalleryRoutes } from '@/app/admin/gallery';
+import { useScrollToTop } from '@/app/hooks/useScrollToTop';
 
 // Create Auth Context
 export const AuthContext = createContext<{
@@ -77,59 +78,89 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <Routes>
-          {/* Public Routes with Header and Footer */}
-          <Route path="/*" element={
-            <div className="min-h-screen flex flex-col bg-background">
-              <Header onApplyClick={() => setIsFormOpen(true)} />
-              
-              <main className="flex-1">
-                <Routes>
-                  <Route 
-                    path="/" 
-                    element={
-                      <HomePage 
-                        onApplyClick={() => setIsFormOpen(true)}
-                        onCampusVisitClick={() => setIsCampusVisitOpen(true)}
-                      />
-                    } 
-                  />
-                  <Route path="/scholarships" element={<ScholarshipPage />} />
-                  <Route path="/selection-process" element={<SelectionProcessPage />} />
-                  <Route path="/career-paths" element={<CareerPathsPage />} />
-                  <Route path="/hostel-facilities" element={<HostelFacilitiesPage />} />
-                  <Route path="/library" element={<LibraryAndStudyAreasPage />} />
-                  <Route path="/campus" element={<CampusBuildingsPage />} />
-                  <Route path="/contact" element={<ContactUsPage />} />
-                  
-                  {/* Redirect to home for unknown routes */}
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-              </main>
-              
-              <Footer />
-              
-              <AdmissionForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
-              <CareerPaths isOpen={isCareerPathsOpen} onClose={() => setIsCareerPathsOpen(false)} />
-              <CampusVisitForm isOpen={isCampusVisitOpen} onClose={() => setIsCampusVisitOpen(false)} />
-            </div>
-          } />
-          
-          {/* Admin Routes without Header and Footer */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/*" element={
-            <ProtectedRoute>
-              <AdminLayout />
-            </ProtectedRoute>
-          }>
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="applications" element={<AdminApplications />} />
-            <Route path="contacts" element={<AdminContacts />} />
-            <Route path="gallery/*" element={<GalleryRoutes />} />
-          </Route>
-        </Routes>
+        <AppContent 
+          isFormOpen={isFormOpen}
+          setIsFormOpen={setIsFormOpen}
+          isCareerPathsOpen={isCareerPathsOpen}
+          setIsCareerPathsOpen={setIsCareerPathsOpen}
+          isCampusVisitOpen={isCampusVisitOpen}
+          setIsCampusVisitOpen={setIsCampusVisitOpen}
+        />
       </Router>
     </AuthProvider>
+  );
+}
+
+function AppContent({ 
+  isFormOpen, 
+  setIsFormOpen, 
+  isCareerPathsOpen, 
+  setIsCareerPathsOpen, 
+  isCampusVisitOpen, 
+  setIsCampusVisitOpen 
+}: {
+  isFormOpen: boolean;
+  setIsFormOpen: (open: boolean) => void;
+  isCareerPathsOpen: boolean;
+  setIsCareerPathsOpen: (open: boolean) => void;
+  isCampusVisitOpen: boolean;
+  setIsCampusVisitOpen: (open: boolean) => void;
+}) {
+  // Scroll to top on route change
+  useScrollToTop();
+  
+  return (
+    <Routes>
+      {/* Public Routes with Header and Footer */}
+      <Route path="/*" element={
+        <div className="min-h-screen flex flex-col bg-background">
+          <Header onApplyClick={() => setIsFormOpen(true)} />
+          
+          <main className="flex-1">
+            <Routes>
+              <Route 
+                path="/" 
+                element={
+                  <HomePage 
+                    onApplyClick={() => setIsFormOpen(true)}
+                    onCampusVisitClick={() => setIsCampusVisitOpen(true)}
+                  />
+                } 
+              />
+              <Route path="/scholarships" element={<ScholarshipPage />} />
+              <Route path="/selection-process" element={<SelectionProcessPage />} />
+              <Route path="/career-paths" element={<CareerPathsPage />} />
+              <Route path="/hostel-facilities" element={<HostelFacilitiesPage />} />
+              <Route path="/library" element={<LibraryAndStudyAreasPage />} />
+              <Route path="/campus" element={<CampusBuildingsPage />} />
+              <Route path="/contact" element={<ContactUsPage />} />
+              
+              {/* Redirect to home for unknown routes */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          
+          <Footer />
+          
+          <AdmissionForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+          <CareerPaths isOpen={isCareerPathsOpen} onClose={() => setIsCareerPathsOpen(false)} />
+          <CampusVisitForm isOpen={isCampusVisitOpen} onClose={() => setIsCampusVisitOpen(false)} />
+        </div>
+      } />
+      
+      {/* Admin Routes without Header and Footer */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/*" element={
+        <ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>
+      }>
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="applications" element={<AdminApplications />} />
+        <Route path="contacts" element={<AdminContacts />} />
+        <Route path="gallery/*" element={<GalleryRoutes />} />
+      </Route>
+    </Routes>
   );
 }

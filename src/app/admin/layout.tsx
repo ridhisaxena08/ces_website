@@ -14,6 +14,7 @@ import {
   ChevronDown,
   ChevronUp
 } from "lucide-react";
+import { useScrollToTop } from '@/app/hooks/useScrollToTop';
 
 export function AdminLayout() {
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ export function AdminLayout() {
   const auth = getAuth(app);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  
+  // Scroll to top on route change
+  useScrollToTop();
   
   // Get the current path for active link highlighting
   const pathname = location.pathname;
