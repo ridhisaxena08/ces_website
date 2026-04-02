@@ -20,11 +20,9 @@ export function Header({ onApplyClick }: HeaderProps) {
   const navLinks = [
     { text: 'Home', href: '/#' },
     { text: 'Programs', href: '/#programs' },
-    // { text: 'Academics', href: '/#academics' },
     { text: 'Scholarships', href: '/scholarships' },
     { text: 'Selection Process', href: '/selection-process' },
     { text: 'Career Paths', href: '/career-paths' },
-    // { text: 'Results', href: '/#results' },
     { 
       text: 'Campus', 
       href: '#',
@@ -43,23 +41,25 @@ export function Header({ onApplyClick }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="CES Logo" className="w-12 h-12" />
-            <div className="flex flex-col">
-              <span className="text-base md:text-xl font-bold text-primary whitespace-nowrap" style={{ fontFamily: 'Georgia, serif' }}>
-                Chandrawati Education Society
-              </span>
+          <div className="flex-shrink-0 max-w-[60%] md:max-w-none">
+            <Link to="/" className="flex items-center gap-2 md:gap-4">
+              <img src={logo} alt="CES Logo" className="w-8 h-8 md:w-16 md:h-16" />
+              <div className="flex flex-col">
+                <span className="text-xs md:text-lg md:text-2xl font-bold text-primary whitespace-nowrap" style={{ fontFamily: 'Georgia, serif' }}>
+                  Chandrawati Education Society
+                </span>
   
-              <span className="text-s font-bold text-black-foreground">Jaipur</span>
-            </div>
-          </Link>
+                <span className="text-xs md:text-sm md:text-base font-medium text-gray-600">Jaipur</span>
+              </div>
+            </Link>
+          </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-4">
+          <nav className="hidden lg:flex items-center justify-center flex-1 mx-4 gap-4">
             {navLinks.map((link) => (
               link.submenu ? (
                 <div key={link.text} className="relative group">
-                  <button className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors">
+                  <button className="flex items-center gap-1 text-sm text-gray-700 hover:text-primary transition-all duration-300 hover:underline underline-offset-4 decoration-2 decoration-primary font-medium whitespace-nowrap">
                     {link.text}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -71,7 +71,7 @@ export function Header({ onApplyClick }: HeaderProps) {
                         <Link
                           key={subItem.text}
                           to={subItem.href}
-                          className="block px-4 py-2 text-sm text-foreground hover:bg-gray-50"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                         >
                           {subItem.text}
                         </Link>
@@ -83,7 +83,7 @@ export function Header({ onApplyClick }: HeaderProps) {
                 <Link
                   key={link.text}
                   to={link.href}
-                  className="text-sm text-foreground hover:text-primary transition-colors"
+                  className="text-sm text-gray-700 hover:text-primary transition-all duration-300 hover:underline underline-offset-4 decoration-2 decoration-primary font-medium whitespace-nowrap"
                 >
                   {link.text}
                 </Link>
@@ -91,7 +91,7 @@ export function Header({ onApplyClick }: HeaderProps) {
                 <a
                   key={link.text}
                   href={link.href}
-                  className="text-sm text-foreground hover:text-primary transition-colors"
+                  className="text-sm text-gray-700 hover:text-primary transition-all duration-300 hover:underline underline-offset-4 decoration-2 decoration-primary font-medium whitespace-nowrap"
                 >
                   {link.text}
                 </a>
@@ -100,29 +100,31 @@ export function Header({ onApplyClick }: HeaderProps) {
           </nav>
           
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 text-gray-700 hover:text-primary"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-border">
-          <nav className="flex flex-col px-4 py-4 space-y-3">
+        <div className="lg:hidden bg-white border-t border-gray-200">
+          <nav className="flex flex-col px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               link.submenu ? (
                 <div key={link.text} className="flex flex-col">
-                  <div className="py-2 text-foreground font-medium">{link.text}</div>
-                  <div className="pl-4 space-y-2 border-l-2 border-gray-100 my-1">
+                  <div className="py-2 text-gray-700 font-medium">{link.text}</div>
+                  <div className="pl-4 space-y-1 border-l-2 border-gray-100 my-1">
                     {link.submenu.map((subItem) => (
                       <Link
                         key={subItem.text}
                         to={subItem.href}
-                        className="block py-1.5 text-foreground hover:text-primary transition-colors"
+                        className="block py-2 text-sm text-gray-600 hover:text-primary transition-colors"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {subItem.text}
@@ -134,7 +136,7 @@ export function Header({ onApplyClick }: HeaderProps) {
                 <Link
                   key={link.text}
                   to={link.href}
-                  className="py-2 text-foreground hover:text-primary transition-colors"
+                  className="py-2 text-gray-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.text}
@@ -143,17 +145,17 @@ export function Header({ onApplyClick }: HeaderProps) {
                 <a
                   key={link.text}
                   href={link.href}
-                  className="py-2 text-foreground hover:text-primary transition-colors"
+                  className="py-2 text-gray-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.text}
                 </a>
               )
             ))}
-            <div className="pt-2">
+            <div className="pt-4 border-t border-gray-200">
               <Button 
                 variant="primary" 
-                className="w-full" 
+                className="w-full py-3 text-sm font-semibold rounded-lg hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap"
                 onClick={() => {
                   onApplyClick();
                   setMobileMenuOpen(false);

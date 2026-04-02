@@ -8,6 +8,8 @@ import { Footer } from '@/app/components/Footer';
 import { AdmissionForm } from '@/app/components/AdmissionForm';
 import { CampusVisitForm } from '@/app/components/CampusVisitForm';
 import { CareerPaths } from '@/app/components/CareerPaths';
+import { LeadCapturePopup } from '@/app/components/LeadCapturePopup';
+import { FloatingEnquiryButton } from '@/app/components/FloatingEnquiryButton';
 import { HomePage } from '@/app/pages/HomePage';
 import { ScholarshipPage } from '@/app/pages/ScholarshipPage';
 import { SelectionProcessPage } from '@/app/pages/SelectionProcessPage';
@@ -16,10 +18,12 @@ import { HostelFacilitiesPage } from '@/app/pages/HostelFacilitiesPage';
 import { LibraryAndStudyAreasPage } from '@/app/pages/LibraryAndStudyAreasPage';
 import { CampusBuildingsPage } from '@/app/pages/CampusBuildingsPage';
 import ContactUsPage from '@/app/pages/ContactUsPage';
+import { CourseDetailPage } from '@/app/pages/CourseDetailPage';
 import { AdminLayout } from '@/app/admin/layout';
 import AdminDashboard from '@/app/admin/dashboard/page';
 import AdminApplications from '@/app/admin/applications/page';
 import AdminContacts from '@/app/admin/contacts/page';
+import AdminLeads from '@/app/admin/leads/page';
 import AdminLogin from '@/app/admin/login/page';
 import { GalleryRoutes } from '@/app/admin/gallery';
 import { useScrollToTop } from '@/app/hooks/useScrollToTop';
@@ -74,6 +78,23 @@ export default function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isCareerPathsOpen, setIsCareerPathsOpen] = useState(false);
   const [isCampusVisitOpen, setIsCampusVisitOpen] = useState(false);
+  const [isLeadCaptureOpen, setIsLeadCaptureOpen] = useState(false);
+  
+  // Check if it's first visit or 1 hour has passed since last submission
+  useEffect(() => {
+    const checkPopupDisplay = () => {
+      const lastSubmissionTime = localStorage.getItem('ces-last-submission-time');
+      const now = new Date().getTime();
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+      
+      // Show popup if no previous submission or 1 hour has passed
+      if (!lastSubmissionTime || (now - parseInt(lastSubmissionTime)) > oneHour) {
+        setIsLeadCaptureOpen(true);
+      }
+    };
+    
+    checkPopupDisplay();
+  }, []);
   
   return (
     <AuthProvider>
@@ -85,6 +106,8 @@ export default function App() {
           setIsCareerPathsOpen={setIsCareerPathsOpen}
           isCampusVisitOpen={isCampusVisitOpen}
           setIsCampusVisitOpen={setIsCampusVisitOpen}
+          isLeadCaptureOpen={isLeadCaptureOpen}
+          setIsLeadCaptureOpen={setIsLeadCaptureOpen}
         />
       </Router>
     </AuthProvider>
@@ -97,7 +120,9 @@ function AppContent({
   isCareerPathsOpen, 
   setIsCareerPathsOpen, 
   isCampusVisitOpen, 
-  setIsCampusVisitOpen 
+  setIsCampusVisitOpen,
+  isLeadCaptureOpen,
+  setIsLeadCaptureOpen
 }: {
   isFormOpen: boolean;
   setIsFormOpen: (open: boolean) => void;
@@ -105,6 +130,8 @@ function AppContent({
   setIsCareerPathsOpen: (open: boolean) => void;
   isCampusVisitOpen: boolean;
   setIsCampusVisitOpen: (open: boolean) => void;
+  isLeadCaptureOpen: boolean;
+  setIsLeadCaptureOpen: (open: boolean) => void;
 }) {
   // Scroll to top on route change
   useScrollToTop();
@@ -134,6 +161,7 @@ function AppContent({
               <Route path="/library" element={<LibraryAndStudyAreasPage />} />
               <Route path="/campus" element={<CampusBuildingsPage />} />
               <Route path="/contact" element={<ContactUsPage />} />
+              <Route path="/course/:slug" element={<CourseDetailPage />} />
               
               {/* Redirect to home for unknown routes */}
               <Route path="*" element={<Navigate to="/" replace />} />
@@ -145,6 +173,8 @@ function AppContent({
           <AdmissionForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
           <CareerPaths isOpen={isCareerPathsOpen} onClose={() => setIsCareerPathsOpen(false)} />
           <CampusVisitForm isOpen={isCampusVisitOpen} onClose={() => setIsCampusVisitOpen(false)} />
+          <LeadCapturePopup isOpen={isLeadCaptureOpen} onClose={() => setIsLeadCaptureOpen(false)} />
+          <FloatingEnquiryButton onEnquiryClick={() => setIsLeadCaptureOpen(true)} />
         </div>
       } />
       
@@ -159,6 +189,7 @@ function AppContent({
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="applications" element={<AdminApplications />} />
         <Route path="contacts" element={<AdminContacts />} />
+        <Route path="leads" element={<AdminLeads />} />
         <Route path="gallery/*" element={<GalleryRoutes />} />
       </Route>
     </Routes>

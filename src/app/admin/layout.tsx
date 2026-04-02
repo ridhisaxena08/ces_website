@@ -12,7 +12,8 @@ import {
   X,
   Image as ImageIcon,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Users
 } from "lucide-react";
 import { useScrollToTop } from '@/app/hooks/useScrollToTop';
 
@@ -46,6 +47,7 @@ export function AdminLayout() {
     if (path === '/admin/dashboard') return 'Dashboard';
     if (path.startsWith('/admin/applications')) return 'Applications';
     if (path.startsWith('/admin/contacts')) return 'Contact Messages';
+    if (path.startsWith('/admin/leads')) return 'Lead Enquiries';
     if (path.startsWith('/admin/gallery')) {
       if (path.endsWith('campus-building')) return 'Campus Building Gallery';
       if (path.endsWith('girls-hostel')) return 'Girls Hostel Gallery';
@@ -149,6 +151,14 @@ export function AdminLayout() {
               >
                 <Mail className="mr-3 h-5 w-5" />
                 Contact Messages
+              </Link>
+              <Link
+                to="/admin/leads"
+                className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/leads') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+                onClick={closeSidebar}
+              >
+                <Users className="mr-3 h-5 w-5" />
+                Lead Enquiries
               </Link>
               
               {/* Gallery Dropdown */}

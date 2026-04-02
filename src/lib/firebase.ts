@@ -59,6 +59,23 @@ const saveContact = async (contactData: any) => {
   }
 };
 
+// Function to save lead capture enquiry to Firestore
+const saveEnquiry = async (enquiryData: any) => {
+  try {
+    const docRef = await addDoc(collection(db, "lead_enquiries"), {
+      ...enquiryData,
+      submittedAt: new Date().toISOString(),
+      status: "new",
+      source: "lead_capture_popup"
+    });
+    console.log("Lead enquiry submitted with ID: ", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error submitting lead enquiry: ", error);
+    throw error;
+  }
+};
+
 // Function to get all applications
 const getApplications = async () => {
   try {
@@ -146,6 +163,7 @@ export {
   storage,
   saveApplication, 
   saveContact,
+  saveEnquiry,
   getApplications,
   getContacts,
   getGalleryImages,
