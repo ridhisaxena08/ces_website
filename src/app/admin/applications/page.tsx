@@ -110,7 +110,7 @@ export default function AdminApplications() {
     }
   };
 
-  const updateStatus = async (id: string, newStatus: string) => {
+  const updateStatus = async (id: string, newStatus: 'new' | 'in_progress' | 'completed') => {
     try {
       await updateDoc(doc(db, 'application_enq', id), {
         status: newStatus
@@ -297,7 +297,7 @@ export default function AdminApplications() {
                         <select
                           className="border border-gray-300 rounded-md shadow-sm py-1.5 pl-3 pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                           value={app.status}
-                          onChange={(e) => updateStatus(app.id, e.target.value)}
+                          onChange={(e) => updateStatus(app.id, e.target.value as 'new' | 'in_progress' | 'completed')}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <option value="new">New</option>
@@ -371,7 +371,7 @@ export default function AdminApplications() {
                 <select
                   className="border rounded-lg px-3 py-2 text-sm"
                   value={selectedApplication.status}
-                  onChange={(e) => updateStatus(selectedApplication.id, e.target.value)}
+                  onChange={(e) => updateStatus(selectedApplication.id, e.target.value as 'new' | 'in_progress' | 'completed')}
                 >
                   <option value="new">New</option>
                   <option value="in_progress">In Progress</option>

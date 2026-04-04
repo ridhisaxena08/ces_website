@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import { sendLeadEnquiryEmail } from "./emailService";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -69,6 +70,20 @@ const saveEnquiry = async (enquiryData: any) => {
       source: "lead_capture_popup"
     });
     console.log("Lead enquiry submitted with ID: ", docRef.id);
+    
+    // Send email notification
+    try {
+      const emailData = {
+        ...enquiryData,
+        submittedAt: new Date().toISOString()
+      };
+      await sendLeadEnquiryEmail(emailData);
+      console.log("Email notification sent successfully for lead ID:", docRef.id);
+    } catch (emailError) {
+      console.error("Failed to send email notification:", emailError);
+      // Don't throw here - we still want to save the lead even if email fails
+    }
+    
     return docRef.id;
   } catch (error) {
     console.error("Error submitting lead enquiry: ", error);
