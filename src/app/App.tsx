@@ -8,7 +8,7 @@ import { Footer } from '@/app/components/Footer';
 import { AdmissionForm } from '@/app/components/AdmissionForm';
 import { CampusVisitForm } from '@/app/components/CampusVisitForm';
 import { CareerPaths } from '@/app/components/CareerPaths';
-import { LeadCapturePopup } from '@/app/components/LeadCapturePopup';
+import { ChatBot } from '@/app/components/ChatBot';
 import { FloatingEnquiryButton } from '@/app/components/FloatingEnquiryButton';
 import { HomePage } from '@/app/pages/HomePage';
 import { ScholarshipPage } from '@/app/pages/ScholarshipPage';
@@ -78,7 +78,7 @@ export default function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isCareerPathsOpen, setIsCareerPathsOpen] = useState(false);
   const [isCampusVisitOpen, setIsCampusVisitOpen] = useState(false);
-  const [isLeadCaptureOpen, setIsLeadCaptureOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   
   // Check if it's first visit or 1 hour has passed since last submission
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function App() {
       
       // Show popup if no previous submission or 1 hour has passed
       if (!lastSubmissionTime || (now - parseInt(lastSubmissionTime)) > oneHour) {
-        setIsLeadCaptureOpen(true);
+        setIsChatOpen(true);
       }
     };
     
@@ -106,8 +106,8 @@ export default function App() {
           setIsCareerPathsOpen={setIsCareerPathsOpen}
           isCampusVisitOpen={isCampusVisitOpen}
           setIsCampusVisitOpen={setIsCampusVisitOpen}
-          isLeadCaptureOpen={isLeadCaptureOpen}
-          setIsLeadCaptureOpen={setIsLeadCaptureOpen}
+          isChatOpen={isChatOpen}
+          setIsChatOpen={setIsChatOpen}
         />
       </Router>
     </AuthProvider>
@@ -121,8 +121,8 @@ function AppContent({
   setIsCareerPathsOpen, 
   isCampusVisitOpen, 
   setIsCampusVisitOpen,
-  isLeadCaptureOpen,
-  setIsLeadCaptureOpen
+  isChatOpen,
+  setIsChatOpen
 }: {
   isFormOpen: boolean;
   setIsFormOpen: (open: boolean) => void;
@@ -130,8 +130,8 @@ function AppContent({
   setIsCareerPathsOpen: (open: boolean) => void;
   isCampusVisitOpen: boolean;
   setIsCampusVisitOpen: (open: boolean) => void;
-  isLeadCaptureOpen: boolean;
-  setIsLeadCaptureOpen: (open: boolean) => void;
+  isChatOpen: boolean;
+  setIsChatOpen: (open: boolean) => void;
 }) {
   // Scroll to top on route change
   useScrollToTop();
@@ -173,8 +173,8 @@ function AppContent({
           <AdmissionForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
           <CareerPaths isOpen={isCareerPathsOpen} onClose={() => setIsCareerPathsOpen(false)} />
           <CampusVisitForm isOpen={isCampusVisitOpen} onClose={() => setIsCampusVisitOpen(false)} />
-          <LeadCapturePopup isOpen={isLeadCaptureOpen} onClose={() => setIsLeadCaptureOpen(false)} />
-          <FloatingEnquiryButton onEnquiryClick={() => setIsLeadCaptureOpen(true)} />
+          <ChatBot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+          <FloatingEnquiryButton onEnquiryClick={() => setIsChatOpen(!isChatOpen)} isChatOpen={isChatOpen} />
         </div>
       } />
       
