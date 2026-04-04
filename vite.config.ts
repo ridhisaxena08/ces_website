@@ -32,7 +32,11 @@ export default defineConfig({
     },
     cors: true,
     proxy: {
-      // Add proxy rules here if needed for Figma API
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      }
     }
   }
 })

@@ -1,10 +1,31 @@
-// src/lib/emailService.ts
-// Client-side email service using API calls
+import express from 'express';
+import nodemailer from 'nodemailer';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+dotenv.config();
 
-// Email template for new lead enquiry (kept for reference)
-const generateLeadEmailTemplate = (leadData: any) => {
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Test with Ethereal email (fake email service for testing)
+const createTestTransporter = async () => {
+  // Use the specific Gmail credentials provided
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'enquiry@rcew.ac.in',
+      pass: 'rcew@123'
+    }
+  });
+};
+
+// Email template for new lead enquiry
+const generateLeadEmailTemplate = (leadData) => {
   const {
     name,
     email,
@@ -159,77 +180,109 @@ const generateLeadEmailTemplate = (leadData: any) => {
   `;
 };
 
-// Function to send lead enquiry email
-export const sendLeadEnquiryEmail = async (leadData: any) => {
+// API endpoint to send lead enquiry email
+app.post('/api/send-email', async (req, res) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/send-email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(leadData),
-    });
-
-    const data = await response.json();
+    const transporter = await createTestTransporter();
+    const leadData = req.body;
     
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to send email');
-    }
-
-    console.log('Lead enquiry email sent successfully:', data.messageId);
-    return {
-      success: true,
-      messageId: data.messageId,
-      response: data.response
+    const mailOptions = {
+      from: 'CES Website <enquiry@rcew.ac.in>',
+      to: 'enquiry@rcew.ac.in',
+      subject: `🎯 New Lead Enquiry: ${leadData.name || 'Unknown'} - ${leadData.company || 'No Company'}`,
+      html: generateLeadEmailTemplate(leadData),
+      priority: 'high'
     };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Lead enquiry email sent successfully:', info.messageId);
+    
+    // If using Ethereal, show preview URL
+    if (info.messageId && nodemailer.getTestMessageUrl) {
+      console.log('📧 Email preview URL:', nodemailer.getTestMessageUrl(info));
+    }
+    
+    res.json({
+      success: true,
+      messageId: info.messageId,
+      response: info.response,
+      previewUrl: nodemailer.getTestMessageUrl ? nodemailer.getTestMessageUrl(info) : null
+    });
   } catch (error) {
     console.error('Error sending lead enquiry email:', error);
-    throw error;
-  }
-};
-
-// Function to test email configuration
-export const testEmailConfiguration = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/test-email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    res.status(500).json({
+      success: false,
+      error: error.message
     });
+  }
+});
 
-    const data = await response.json();
+// API endpoint to test email configuration
+app.post('/api/test-email', async (req, res) => {
+  try {
+    const transporter = await createTestTransporter();
     
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to send test email');
-    }
-
-    console.log('Test email sent successfully:', data.messageId);
-    return {
-      success: true,
-      messageId: data.messageId,
-      response: data.response
+    const testMailOptions = {
+      from: 'CES Website <enquiry@rcew.ac.in>',
+      to: 'enquiry@rcew.ac.in',
+      subject: '🧪 Test Email - CES Website SMTP Configuration',
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; text-align: center;">
+          <h2>✅ Email Configuration Test Successful!</h2>
+          <p>Your SMTP service is working correctly.</p>
+          <p>This is a test email from the CES Website Lead Management System.</p>
+          <p><small>Sent at: ${new Date().toLocaleString()}</small></p>
+        </div>
+      `
     };
+
+    const info = await transporter.sendMail(testMailOptions);
+    console.log('Test email sent successfully:', info.messageId);
+    
+    // If using Ethereal, show preview URL
+    if (info.messageId && nodemailer.getTestMessageUrl) {
+      console.log('📧 Email preview URL:', nodemailer.getTestMessageUrl(info));
+    }
+    
+    res.json({
+      success: true,
+      messageId: info.messageId,
+      response: info.response,
+      previewUrl: nodemailer.getTestMessageUrl ? nodemailer.getTestMessageUrl(info) : null
+    });
   } catch (error) {
     console.error('Error sending test email:', error);
-    throw error;
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
   }
-};
+});
 
-// Verify transporter connection
-export const verifyEmailConnection = async () => {
+// API endpoint to verify email connection
+app.get('/api/verify-email', async (req, res) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/verify-email`);
-    const data = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to verify email connection');
-    }
-
+    const transporter = await createTestTransporter();
+    await transporter.verify();
     console.log('Email server connection verified successfully');
-    return true;
+    res.json({
+      success: true,
+      message: 'Email server connection verified successfully'
+    });
   } catch (error) {
     console.error('Email server connection failed:', error);
-    return false;
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
   }
-};
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+app.listen(PORT, () => {
+  console.log(`Email server running on port ${PORT}`);
+});
